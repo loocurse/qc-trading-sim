@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  padding: 1rem 1rem;
+  border: 1px solid black;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    color: white;
+  }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.graph {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions {
+  min-height: 100vh;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 10%;
+  button {
+    margin: 2rem;
+    min-height: 10vh;
+    font-size: 2rem;
+  }
+}
