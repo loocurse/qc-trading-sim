@@ -8,6 +8,8 @@ After this goes on for another 2 minutes, we ask them for their emotions.
 # TODO
 
 - [X] Add https://apexcharts.com/react-chart-demos/line-charts/realtime/ to replace current graph, but the original code got a few missing functions to just gotta take note
-- [ ] Make buttons 'buy' and 'sell' and track it in a state
+- [X] Make buttons 'buy' and 'sell' and track it in a state
 - [X] Add paper money indicator at the top
 - [ ] Decide on graph resolution. Since it's day trading, let's fix the resolution to be minutes?
+- [ ] Add log of all the positions closed.
+- [ ] Add feature to t

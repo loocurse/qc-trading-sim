@@ -25,6 +25,7 @@ const generateData = () => {
 function App() {
   const [cash, setCash] = useState(1000);
   const [series, setSeries] = useState(generateData);
+  const [annotation, setAnnotation] = useState([]);
   let price;
 
   // Every 2 seconds, append to data
@@ -58,13 +59,14 @@ function App() {
       <div className="app">
         <div className="main">
           <div className="graph">
-            <Graph series={series} />
+            <Graph series={series} annotation={annotation} />
           </div>
           <Buttons
             setCash={setCash}
             cash={cash}
             price={price}
             series={series}
+            setAnnotation={setAnnotation}
           />
         </div>
       </div>
