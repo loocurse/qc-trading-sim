@@ -10,7 +10,6 @@ function Buttons({ setCash, cash, price, series }) {
   };
 
   const updateCash = () => {
-    console.log(value);
     const buy = value.buy[value.buy.length - 1];
     const sell = series[series.length - 1].y;
     setCash(cash * (sell / buy));
@@ -21,8 +20,7 @@ function Buttons({ setCash, cash, price, series }) {
     const new_value = [...value.sell, series[series.length - 1].y];
     setValue({ ...value, sell: new_value });
     // show status of sell
-    // change money value
-    updateCash();
+    updateCash(); // change money value
   };
 
   return (

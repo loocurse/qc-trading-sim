@@ -25,6 +25,11 @@ function Graph({ series }) {
         yaxis: {
           max: 40,
           min: 0,
+          labels: {
+            formatter: function (val) {
+              return val.toFixed(0);
+            },
+          },
         },
         stroke: { curve: "smooth" },
       }}
