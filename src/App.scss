@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
 }
-
+.app {
+  margin: auto;
+  width: 80%;
+}
 nav {
   padding: 1rem 1rem;
   border: 1px solid black;
@@ -37,8 +40,11 @@ nav {
   justify-content: center;
   margin-right: 10%;
   button {
-    margin: 2rem;
+    margin: 2rem 1rem;
     min-height: 10vh;
     font-size: 2rem;
+  }
+  p {
+    margin: 2rem 1rem;
   }
 }
