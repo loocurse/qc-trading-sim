@@ -1,7 +1,6 @@
 import Chart from "react-apexcharts";
 
 function Graph({ graphData }) {
-
   return (
     <Chart
       options={{
@@ -11,6 +10,7 @@ function Graph({ graphData }) {
         xaxis: {
           categories: graphData.xaxis,
         },
+        stroke: { curve: "smooth" },
       }}
       series={[
         {

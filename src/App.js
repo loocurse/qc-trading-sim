@@ -4,7 +4,7 @@ import Buttons from "./components/Buttons";
 import Graph from "./components/Graph";
 
 function App() {
-  const [cash, setCash] = useState(0);
+  const [cash, setCash] = useState(1000);
 
   // data and time are variables used in the graph
   let time = 11;
@@ -18,8 +18,9 @@ function App() {
     setInterval(() => {
       let x_axis = data.xaxis;
       let y_axis = data.yaxis;
+      let last_val = y_axis[y_axis.length - 1]
       x_axis.push(time);
-      y_axis.push(Math.floor(Math.random() * 10 + 5));
+      y_axis.push(Math.floor((Math.random()-0.4) * 5 + last_val));
       x_axis.shift();
       y_axis.shift();
       time++;
