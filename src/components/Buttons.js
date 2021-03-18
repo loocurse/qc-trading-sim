@@ -8,19 +8,19 @@ function Buttons({ setAnnotation, setCash, cash, price, series }) {
     setValue({ ...value, buy: new_value });
     // change graph color, or show some sort of status of purchase
     setAnnotation([
-        {
-          y: series[series.length - 1].y,
-          borderColor: '#006400',
-          label: {
-            borderColor: '#006400',
-            style: {
-              color: '#fff',
-              background: '#006400'
-            },
-            text: 'Buy Price'
-          }
-        }
-      ])
+      {
+        y: series[series.length - 1].y,
+        borderColor: "#006400",
+        label: {
+          borderColor: "#006400",
+          style: {
+            color: "#fff",
+            background: "#006400",
+          },
+          text: "Buy Price",
+        },
+      },
+    ]);
   };
 
   const updateCash = () => {
@@ -34,10 +34,9 @@ function Buttons({ setAnnotation, setCash, cash, price, series }) {
     const new_value = [...value.sell, series[series.length - 1].y];
     setValue({ ...value, sell: new_value });
     // show status of sell
-    setAnnotation([])
+    setAnnotation([]);
     updateCash(); // change money value
   };
-
 
   return (
     <div className="buttons">
