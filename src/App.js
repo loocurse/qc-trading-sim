@@ -4,9 +4,9 @@ import Buttons from "./components/Buttons";
 import Graph from "./components/Graph";
 import ApexChart from "apexcharts";
 
-const getNextDay = (date, days) => {
+const getNextDay = (date, day) => {
   const nextDay = new Date(date);
-  nextDay.setDate(nextDay.getDate() + days);
+  nextDay.setDate(nextDay.getDate() + day);
   return nextDay;
 };
 
@@ -20,19 +20,24 @@ const generateData = () => {
   return xaxis.map((value, idx) => {
     return { x: value, y: yaxis[idx] };
   });
-}; // [{x: day 1, y: price}, {x: day2, y: price}, ...]
+}; // [{x: day 1, y: price}, {x: day 2, y: price}, ...]
+
 function App() {
   const [cash, setCash] = useState(1000);
-
   const [series, setSeries] = useState(generateData);
+  let price;
 
   // Every 2 seconds, append to data
   useEffect(() => {
     setInterval(() => {
       setSeries((oldData) => {
+        price = Math.abs(
+          (Math.random() - 0.48) * 6 + oldData[oldData.length - 1].y
+        );
+
         const newDataPoint = {
           x: getNextDay(oldData[oldData.length - 1].x, 1),
-          y: Math.floor(Math.random() * 10 + 5),
+          y: price, // p(t+1) is dependent on p(t)
         };
         const newData = oldData.slice();
         // TODO Memory Leak issue
@@ -42,7 +47,7 @@ function App() {
         newData.push(newDataPoint);
         return newData;
       });
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (
@@ -53,9 +58,14 @@ function App() {
       <div className="app">
         <div className="main">
           <div className="graph">
-            <Graph graphData={series} />
+            <Graph series={series} />
           </div>
-          <Buttons cash={cash} />
+          <Buttons
+            setCash={setCash}
+            cash={cash}
+            price={price}
+            series={series}
+          />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 
 const X_AXIS_RANGE = 1000 * 3600 * 24 * 10; // 10 days
 
-function Graph({ graphData }) {
+function Graph({ series }) {
   return (
     <Chart
       options={{
@@ -13,7 +13,7 @@ function Graph({ graphData }) {
             enabled: true,
             easing: "linear",
             dynamicAnimation: {
-              speed: 2000,
+              speed: 1000,
             },
           },
           type: "line",
@@ -23,7 +23,7 @@ function Graph({ graphData }) {
           type: "datetime",
         },
         yaxis: {
-          max: 20,
+          max: 40,
           min: 0,
         },
         stroke: { curve: "smooth" },
@@ -31,7 +31,7 @@ function Graph({ graphData }) {
       series={[
         {
           name: "series-1",
-          data: graphData.slice(),
+          data: series.slice(),
         },
       ]}
       width="600"
