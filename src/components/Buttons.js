@@ -14,10 +14,15 @@ function Buttons({ series, dispatch, cash, transactions }) {
   const buying = transactions.buy.length === transactions.sell.length;
 
   return (
-    <div className="buttons">
+    <div className="buttons flex flex-col items-space-around">
+      
       <div className="flex flex-col items-center">
-        <span className="uppercase ">Amount</span>
-        <span className="font-semibold text-4xl mt-2">${Math.round(cash)}</span>
+        <p className="uppercase ">Total Capital</p>
+        <p className="font-semibold text-4xl mt-1">${Math.round(cash)}</p>
+      </div>
+      <div className="flex flex-col items-center">
+        <p className="uppercase ">Position</p>
+        <p className="font-semibold text-4xl mt-1">${Math.round(cash)}</p>
       </div>
       <button
         onClick={buying ? buyEventHandler : sellEventHandler}

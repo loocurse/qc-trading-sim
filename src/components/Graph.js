@@ -5,9 +5,14 @@ const X_AXIS_RANGE = 1000 * 3600 * 24 * 1; // 1 day
 
 function Graph({ series, annotation }) {
   return (
-    <Chart
+    <div>
+      <h2><em>NYSE: BABA</em></h2>
+      <Chart
       options={{
         chart: {
+          toolbar: {
+            show: false,
+          },
           id: "basic-bar",
           animations: {
             enabled: true,
@@ -61,6 +66,9 @@ function Graph({ series, annotation }) {
       ]}
       width="600"
     />
+
+    </div>
+    
   );
 }
 
