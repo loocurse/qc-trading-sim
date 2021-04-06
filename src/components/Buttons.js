@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+import EditableInput from "./EditableInput";
 
 function Buttons({ series, dispatch, cash, transactions, position }) {
+  const inputRef = useRef(null);
   const buyEventHandler = () => {
     // record down buy price
     dispatch({
@@ -38,7 +40,41 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
       </div>
       <div className="flex flex-col items-center">
         <p className="uppercase ">Position</p>
-        <p className="font-semibold text-4xl mt-1">${Math.round(position)}</p>
+        {/* <p className="font-semibold text-4xl mt-1">${Math.round(position)}</p> */}
+        <EditableInput
+          childRef={inputRef}
+          displayText={
+            <p className="font-semibold text-4xl">{`$${Math.round(
+              position
+            )}`}</p>
+          }
+          input={
+            <input
+              className="flex font-semibold text-4xl text-center w-40 h-10 text-gray-700 focus:outline-none focus:shadow-outline border-blue-300 border-2 rounded"
+              ref={inputRef}
+              defaultValue={position}
+              type="number"
+              onBlur={(e) => {
+                if (e.target.value.match("^[0-9]+$"))
+                  dispatch({
+                    type: "SET POSITION",
+                    position: Number(e.target.value),
+                  });
+              }}
+              onKeyDown={(e) => {
+                if (
+                  ["Enter", "Escape", "Tab"].indexOf(e.key) > -1 &&
+                  e.target.value.match("^[0-9]+$")
+                ) {
+                  dispatch({
+                    type: "SET POSITION",
+                    position: Number(e.target.value),
+                  });
+                }
+              }}
+            />
+          }
+        />
         <div className="plus-minus">
           <FontAwesomeIcon
             onClick={increasePositionHandler}
