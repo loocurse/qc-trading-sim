@@ -59,18 +59,16 @@ nav {
   p,
   input {
     margin: 2rem 1rem;
-  }
-  /* Chrome, Safari, Edge, Opera */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
   }
 
-  /* Firefox */
-  input[type="number"] {
-    -moz-appearance: textfield;
-  }
   .plus-minus {
     display: flex;
     align-items: center;

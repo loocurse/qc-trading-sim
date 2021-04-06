@@ -13,7 +13,7 @@ const EditableInput = ({
       childRef.current.focus();
     }
   }, [editing, childRef]);
-  const keydownHandler = (event, type) => {
+  const keydownHandler = (event) => {
     const { key } = event;
     const keys = ["Escape", "Tab", "Enter"];
     if (keys.indexOf(key) > -1) {

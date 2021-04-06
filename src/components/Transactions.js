@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Transactions() {
+export default function Transactions({ transactions, className, ...props }) {
   // TODO integrate data from other components
   // TODO Change table headers
   const data = [
@@ -9,7 +9,7 @@ export default function Transactions() {
       operation: "BUY",
       quantity: 100,
       price: 5,
-      money: 500,
+      money: "Open",
     },
     {
       date: "21 Nov 2021",
@@ -20,17 +20,8 @@ export default function Transactions() {
     },
   ];
   return (
-    <div
-      style={{
-        gridColumn: "1/-1",
-      }}
-    >
-      <table
-        style={{
-          width: "100%",
-          borderCollapse: "collapse",
-        }}
-      >
+    <div className={`col-span-full ${className}`} {...props}>
+      <table className="w-full border-collapse">
         <colgroup>
           {Array(5)
             .fill()
@@ -39,68 +30,36 @@ export default function Transactions() {
             ))}
         </colgroup>
         <thead>
-          <tr
-            style={{
-              background: "#E5E7EB",
-              color: "#4B5563",
-            }}
-          >
-            <th style={{ padding: "12px 0px 12px 24px", textAlign: "left" }}>
-              Date
-            </th>
-            <th style={{ padding: "12px 0px" }}>Operation</th>
-            <th style={{ padding: "12px 16px 12px 0px", textAlign: "right" }}>
-              Quantity
-            </th>
-            <th style={{ padding: "12px 16px 12px 0px", textAlign: "right" }}>
-              Price
-            </th>
-            <th style={{ padding: "12px 24px 12px 0px", textAlign: "right" }}>
-              Money
-            </th>
+          <tr className="bg-gray-200 text-gray-600">
+            <th className="py-3 pl-6 text-left">Settle Date</th>
+            <th className="py-3 text-center">Operation </th>
+            <th className="py-3 pr-4 text-right">Position</th>
+            <th className="py-3 pr-4 text-right">Price</th>
+            <th className="py-3 pr-6 text-right">Realized PnL</th>
           </tr>
         </thead>
         <tbody>
           {data.map(({ date, operation, quantity, price, money }, idx) => {
             return (
               <tr
-                style={{
-                  borderBottom: "1px solid #e5e7eb",
-                  background: idx % 2 !== 0 ? "#F9FAFB" : "",
-                }}
+                className={`border-b border-gray-200 ${
+                  idx % 2 !== 0 ? "bg-gray-100" : ""
+                }`}
                 key={idx}
               >
-                <td
-                  style={{ padding: "12px 0px 12px 24px", textAlign: "left" }}
-                >
-                  {date}
-                </td>
-                <td style={{ textAlign: "center", padding: "4px 0px" }}>
+                <td className="py-3 pl-6 text-left">{date}</td>
+                <td className="py-1 text-center">
                   <span
-                    style={{
-                      background: operation === "BUY" ? "#A7F3D0" : "#FECACA",
-                      borderRadius: "9999px",
-                      padding: "4px 16px",
-                    }}
+                    className={`${
+                      operation === "BUY" ? "bg-green-200" : "bg-red-200"
+                    } rounded-full py-1 px-4`}
                   >
                     {operation}
                   </span>
                 </td>
-                <td
-                  style={{ padding: "12px 16px 12px 0px", textAlign: "right" }}
-                >
-                  {quantity}
-                </td>
-                <td
-                  style={{ padding: "12px 16px 12px 0px", textAlign: "right" }}
-                >
-                  {price}
-                </td>
-                <td
-                  style={{ padding: "12px 24px 12px 0px", textAlign: "right" }}
-                >
-                  {money}
-                </td>
+                <td className="py-3 pr-4 text-right">{quantity}</td>
+                <td className="py-3 pr-4 text-right">{price}</td>
+                <td className="py-3 pr-6 text-right">{money}</td>
               </tr>
             );
           })}

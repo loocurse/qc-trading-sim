@@ -74,7 +74,7 @@ function App() {
             transactions={state.transactions}
             position={state.position}
           />
-          <Transactions />
+          <Transactions className="mt-8" />
         </div>
       </div>
     </div>
