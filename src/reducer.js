@@ -29,8 +29,10 @@ const reducer = (state, action) => {
           },
         },
       ];
+      const cash = state.cash - action.position
       return {
         ...state,
+        cash,
         transactions,
         annotation,
       };
@@ -42,7 +44,7 @@ const reducer = (state, action) => {
         sell: [...state.transactions.sell, action.sellPrice],
       };
       const cash =
-        state.cash *
+        state.cash + action.position * 
         (action.sellPrice / transactions.buy[transactions.buy.length - 1]);
       return {
         ...state,
@@ -52,7 +54,7 @@ const reducer = (state, action) => {
       };
 
     case "INCREASE POSITION":
-      if (state.position + 10 >= state.cash) {
+      if (state.position + 20 >= state.cash) {
         return {
           ...state,
           position: state.cash,
@@ -60,10 +62,10 @@ const reducer = (state, action) => {
       }
       return {
         ...state,
-        position: state.position + 10,
+        position: state.position + 20,
       };
     case "DECREASE POSITION":
-      if (state.position - 10 <= 0) {
+      if (state.position - 20 <= 0) {
         return {
           ...state,
           position: 0,
@@ -71,7 +73,7 @@ const reducer = (state, action) => {
       }
       return {
         ...state,
-        position: state.position - 10,
+        position: state.position - 20,
       };
 
     default:

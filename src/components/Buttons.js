@@ -5,12 +5,20 @@ import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 function Buttons({ series, dispatch, cash, transactions, position }) {
   const buyEventHandler = () => {
     // record down buy price
-    dispatch({ type: "BUY", buyPrice: series[series.length - 1].y });
+    dispatch({
+      type: "BUY",
+      buyPrice: series[series.length - 1].y,
+      position: position,
+    });
   };
 
   const sellEventHandler = () => {
     // recording down sell price
-    dispatch({ type: "SELL", sellPrice: series[series.length - 1].y });
+    dispatch({
+      type: "SELL",
+      sellPrice: series[series.length - 1].y,
+      position: position,
+    });
   };
 
   const increasePositionHandler = () => {
@@ -32,8 +40,16 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
         <p className="uppercase ">Position</p>
         <p className="font-semibold text-4xl mt-1">${Math.round(position)}</p>
         <div className="plus-minus">
-          <FontAwesomeIcon onClick={increasePositionHandler} icon={faPlusCircle} className="btn" />
-          <FontAwesomeIcon onClick={decreasePositionHandler} icon={faMinusCircle} className="btn" />
+          <FontAwesomeIcon
+            onClick={increasePositionHandler}
+            icon={faPlusCircle}
+            className="btn"
+          />
+          <FontAwesomeIcon
+            onClick={decreasePositionHandler}
+            icon={faMinusCircle}
+            className="btn"
+          />
         </div>
       </div>
       <button
