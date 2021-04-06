@@ -3,6 +3,7 @@ import { useState, useRef, useReducer } from "react";
 import Buttons from "./components/Buttons";
 import Graph from "./components/Graph";
 import Transactions from "./components/Transactions";
+import { WalletIcon } from "./components/Icons";
 
 const getNextDay = (date, days) => {
   const nextDay = new Date(date);
@@ -115,17 +116,34 @@ function App() {
   return (
     <div>
       <nav>
-        <h1 style={{ marginLeft: "auto" }}>Trading portal</h1>
-        <button style={{ marginLeft: "auto" }} onClick={triggerInterval}>
-          {updating ? "Stop" : "Start"}
-        </button>
+        <div className="flex flex-1"></div>
+        <h1 className="font-bold">Trading portal</h1>
+        <div className="flex flex-1 justify-end items-center">
+          <div className="flex items-center">
+            <WalletIcon className="w-8 h-8 text-green-500 inline-block" />
+            <span className="text-white font-bold ml-2">
+              ${Math.round(state.cash).toLocaleString()}
+            </span>
+          </div>
+          <button
+            onClick={triggerInterval}
+            className="bg-gray-100 px-6 py-1 rounded-full ml-8"
+          >
+            {updating ? "Stop" : "Start"}
+          </button>
+        </div>
       </nav>
       <div className="app">
         <div className="main">
           <div className="graph">
             <Graph series={series} annotation={state.annotation} />
           </div>
-          <Buttons series={series} dispatch={dispatch} cash={state.cash} />
+          <Buttons
+            series={series}
+            dispatch={dispatch}
+            cash={state.cash}
+            transactions={state.transactions}
+          />
           <Transactions />
         </div>
       </div>
