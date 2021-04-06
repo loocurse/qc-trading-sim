@@ -25,6 +25,7 @@ const generateData = () => {
 
 const initialState = {
   cash: 1000,
+  position: 100,
   transactions: {
     buy: [],
     sell: [],
@@ -68,9 +69,33 @@ const reducer = (state, action) => {
         state.cash *
         (action.sellPrice / transactions.buy[transactions.buy.length - 1]);
       return {
+        ...state,
         transactions,
         annotation: [],
         cash,
+      };
+
+    case "INCREASE POSITION":
+      if (state.position + 10 >= state.cash) {
+        return {
+          ...state,
+          position: state.cash,
+        };
+      }
+      return {
+        ...state,
+        position: state.position + 10,
+      };
+    case "DECREASE POSITION":
+      if (state.position - 10 <= 0) {
+        return {
+          ...state,
+          position: 0,
+        };
+      }
+      return {
+        ...state,
+        position: state.position - 10,
       };
 
     default:
@@ -143,6 +168,7 @@ function App() {
             dispatch={dispatch}
             cash={state.cash}
             transactions={state.transactions}
+            position={state.position}
           />
           <Transactions />
         </div>

@@ -61,6 +61,16 @@ nav {
   p {
     margin: 2rem 1rem;
   }
+  .plus-minus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    .btn {
+      margin: 0rem 1rem;
+      cursor: pointer;
+    }
+  }
 }
 
 td {
