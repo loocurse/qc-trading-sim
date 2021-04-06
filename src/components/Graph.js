@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const X_AXIS_RANGE = 1000 * 3600 * 24 * 10; // 10 days
+const X_AXIS_RANGE = 1000 * 3600 * 24 * 1; // 1 day
 
 function Graph({ series, annotation }) {
   return (
@@ -13,7 +13,7 @@ function Graph({ series, annotation }) {
             enabled: true,
             easing: "linear",
             dynamicAnimation: {
-              speed: 1000,
+              speed: 500,
             },
           },
           type: "line",
@@ -37,8 +37,10 @@ function Graph({ series, annotation }) {
           yaxis: [...annotation],
         },
         xaxis: {
-          range: X_AXIS_RANGE,
+          // range: X_AXIS_RANGE,
           type: "datetime",
+          min: new Date().getTime(),
+          max: new Date().getTime() + X_AXIS_RANGE * 100,
         },
         yaxis: {
           max: 40,
@@ -53,7 +55,7 @@ function Graph({ series, annotation }) {
       }}
       series={[
         {
-          name: "series-1",
+          name: "NYSE-BABA",
           data: series.slice(),
         },
       ]}

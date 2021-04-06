@@ -1,41 +1,14 @@
-import { useState } from "react";
+import React from "react";
 
-function Buttons({ setAnnotation, setCash, cash, price, series }) {
-  const [value, setValue] = useState({ buy: [], sell: [] });
+function Buttons({ series, dispatch, cash }) {
   const buyEventHandler = () => {
     // record down buy price
-    const new_value = [...value.buy, series[series.length - 1].y];
-    setValue({ ...value, buy: new_value });
-    // change graph color, or show some sort of status of purchase
-    setAnnotation([
-      {
-        y: series[series.length - 1].y,
-        borderColor: "#006400",
-        label: {
-          borderColor: "#006400",
-          style: {
-            color: "#fff",
-            background: "#006400",
-          },
-          text: "Buy Price",
-        },
-      },
-    ]);
-  };
-
-  const updateCash = () => {
-    const buy = value.buy[value.buy.length - 1];
-    const sell = series[series.length - 1].y;
-    setCash(cash * (sell / buy));
+    dispatch({ type: "BUY", buyPrice: series[series.length - 1].y });
   };
 
   const sellEventHandler = () => {
     // recording down sell price
-    const new_value = [...value.sell, series[series.length - 1].y];
-    setValue({ ...value, sell: new_value });
-    // show status of sell
-    setAnnotation([]);
-    updateCash(); // change money value
+    dispatch({ type: "SELL", sellPrice: series[series.length - 1].y });
   };
 
   return (

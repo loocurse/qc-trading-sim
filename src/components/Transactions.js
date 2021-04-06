@@ -34,8 +34,8 @@ export default function Transactions() {
         <colgroup>
           {Array(5)
             .fill()
-            .map(() => (
-              <col style={{ width: "20%" }}></col>
+            .map((_, idx) => (
+              <col style={{ width: "20%" }} key={idx}></col>
             ))}
         </colgroup>
         <thead>
@@ -68,6 +68,7 @@ export default function Transactions() {
                   borderBottom: "1px solid #e5e7eb",
                   background: idx % 2 !== 0 ? "#F9FAFB" : "",
                 }}
+                key={idx}
               >
                 <td
                   style={{ padding: "12px 0px 12px 24px", textAlign: "left" }}

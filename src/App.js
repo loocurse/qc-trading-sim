@@ -1,12 +1,12 @@
 import "./App.scss";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useReducer } from "react";
 import Buttons from "./components/Buttons";
 import Graph from "./components/Graph";
 import Transactions from "./components/Transactions";
 
-const getNextDay = (date, day) => {
+const getNextDay = (date, days) => {
   const nextDay = new Date(date);
-  nextDay.setDate(nextDay.getDate() + day);
+  nextDay.setDate(nextDay.getDate() + days);
   return nextDay;
 };
 
@@ -22,10 +22,64 @@ const generateData = () => {
   });
 }; // [{x: day 1, y: price}, {x: day 2, y: price}, ...]
 
+const initialState = {
+  cash: 1000,
+  transactions: {
+    buy: [],
+    sell: [],
+  },
+  annotation: [],
+};
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "BUY": {
+      const transactions = {
+        ...state.transactions,
+        buy: [...state.transactions.buy, action.buyPrice],
+      };
+      const annotation = [
+        {
+          y: action.buyPrice,
+          borderColor: "#006400",
+          label: {
+            borderColor: "#006400",
+            style: {
+              color: "#fff",
+              background: "#006400",
+            },
+            text: "Buy Price",
+          },
+        },
+      ];
+      return {
+        ...state,
+        transactions,
+        annotation,
+      };
+    }
+
+    case "SELL":
+      const transactions = {
+        ...state.transactions,
+        sell: [...state.transactions.sell, action.sellPrice],
+      };
+      const cash =
+        state.cash *
+        (action.sellPrice / transactions.buy[transactions.buy.length - 1]);
+      return {
+        transactions,
+        annotation: [],
+        cash,
+      };
+
+    default:
+      return;
+  }
+};
+
 function App() {
-  const [cash, setCash] = useState(1000);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [series, setSeries] = useState(generateData);
-  const [annotation, setAnnotation] = useState([]);
   const [updating, setUpdating] = useState(false);
   const intervalRef = useRef(null);
 
@@ -53,7 +107,7 @@ function App() {
           newData.push(newDataPoint);
           return newData;
         });
-      }, 1000);
+      }, 500);
       setUpdating(true);
     }
   };
@@ -69,15 +123,9 @@ function App() {
       <div className="app">
         <div className="main">
           <div className="graph">
-            <Graph series={series} annotation={annotation} />
+            <Graph series={series} annotation={state.annotation} />
           </div>
-          <Buttons
-            setCash={setCash}
-            cash={cash}
-            // price={price}
-            series={series}
-            setAnnotation={setAnnotation}
-          />
+          <Buttons series={series} dispatch={dispatch} cash={state.cash} />
           <Transactions />
         </div>
       </div>
