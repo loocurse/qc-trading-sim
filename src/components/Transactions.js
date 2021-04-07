@@ -10,7 +10,10 @@ export default function Transactions({ transactions, className, ...props }) {
       allTransactions.push(transactions.sell[i]);
   }
   return (
-    <div className={`col-span-full ${className}`} {...props}>
+    <div
+      className={`col-span-full overflow-y-auto max-h-80 ${className}`}
+      {...props}
+    >
       <table className="w-full border-collapse">
         <colgroup>
           {Array(5)
@@ -43,18 +46,23 @@ export default function Transactions({ transactions, className, ...props }) {
                 <td className="py-1 text-center">
                   <span
                     className={`${
-                      idx % 2 === 0 ? "bg-green-200" : "bg-red-200"
-                    } rounded-full py-1 px-4`}
+                      idx % 2 === 0
+                        ? "bg-green-200 text-green-800"
+                        : "bg-red-200 text-red-800"
+                    } rounded-full py-1 px-4 font-semibold`}
                   >
                     {idx % 2 === 0 ? "BUY" : "SELL"}
                   </span>
                 </td>
-                <td className="py-3 pr-4 text-right">{position}</td>
-                <td className="py-3 pr-4 text-right">{price}</td>
+                <td className="py-3 pr-4 text-right">{position.toFixed(2)}</td>
+                <td className="py-3 pr-4 text-right">{price.toFixed(2)}</td>
                 <td className="py-3 pr-6 text-right">
                   {idx % 2 === 0
                     ? "open"
-                    : position * (price / allTransactions[idx - 1].price)}
+                    : (
+                        position *
+                        (price / allTransactions[idx - 1].price)
+                      ).toFixed(2)}
                 </td>
               </tr>
             );

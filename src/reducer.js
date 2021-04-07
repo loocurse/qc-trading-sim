@@ -1,8 +1,13 @@
 const initialState = {
   cash: 1000,
   position: 100,
+  algoPosition: 1000,
   transactions: {
     buy: [], // {date, price, position}
+    sell: [],
+  },
+  algoTransactions: {
+    buy: [],
     sell: [],
   },
   annotation: [],
@@ -56,6 +61,40 @@ const reducer = (state, action) => {
         annotation: [],
         cash,
       };
+
+    case "ALGO BUY": {
+      const algoTransactions = {
+        ...state.algoTransactions,
+        buy: [
+          ...state.algoTransactions.buy,
+          { ...action.buy, position: state.algoPosition },
+        ],
+      };
+      return {
+        ...state,
+        algoTransactions,
+      };
+    }
+
+    case "ALGO SELL": {
+      const algoTransactions = {
+        ...state.algoTransactions,
+        sell: [
+          ...state.algoTransactions.sell,
+          { ...action.sell, position: state.algoPosition },
+        ],
+      };
+      const algoPosition =
+        state.algoPosition *
+        (action.sell.price /
+          algoTransactions.buy[algoTransactions.buy.length - 1].price);
+      console.log(algoPosition);
+      return {
+        ...state,
+        algoPosition,
+        algoTransactions,
+      };
+    }
 
     case "INCREASE POSITION":
       if (state.position + 20 >= state.cash) {

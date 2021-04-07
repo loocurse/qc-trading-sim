@@ -16,4 +16,14 @@ const generateData = () => {
   });
 }; // [{x: day 1, y: price}, {x: day 2, y: price}, ...]
 
-export { getNextDay, generateData };
+const parseDate = (str) => {
+  const parts = str.split("/");
+  const date = new Date(
+    parseInt("20" + parts[2], 10),
+    parseInt(parts[1], 10) - 1,
+    parseInt(parts[0], 10)
+  );
+  return date;
+};
+
+export { getNextDay, generateData, parseDate };

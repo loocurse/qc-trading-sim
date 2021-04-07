@@ -5,6 +5,8 @@ import EditableInput from "./EditableInput";
 
 function Buttons({ series, dispatch, cash, transactions, position }) {
   const inputRef = useRef(null);
+
+  const buying = transactions.buy.length === transactions.sell.length;
   const buyEventHandler = () => {
     // record down buy price
     dispatch({
@@ -30,13 +32,11 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
   };
 
   const increasePositionHandler = () => {
-    dispatch({ type: "INCREASE POSITION" });
+    buying && dispatch({ type: "INCREASE POSITION" });
   };
   const decreasePositionHandler = () => {
-    dispatch({ type: "DECREASE POSITION" });
+    buying && dispatch({ type: "DECREASE POSITION" });
   };
-
-  const buying = transactions.buy.length === transactions.sell.length;
 
   return (
     <div className="buttons flex flex-col items-space-around">
@@ -49,10 +49,14 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
         {/* <p className="font-semibold text-4xl mt-1">${Math.round(position)}</p> */}
         <EditableInput
           childRef={inputRef}
+          className={buying ? "" : "cursor-not-allowed"}
+          buying={buying}
           displayText={
-            <p className="font-semibold text-4xl">{`$${Math.round(
-              position
-            )}`}</p>
+            <p
+              className={`font-semibold text-4xl ${
+                buying ? "" : "text-gray-400"
+              }`}
+            >{`$${Math.round(position)}`}</p>
           }
           input={
             <input
@@ -85,12 +89,12 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
           <FontAwesomeIcon
             onClick={increasePositionHandler}
             icon={faPlusCircle}
-            className="btn"
+            className={`btn ${buying ? "" : "btn-disabled text-gray-400"}`}
           />
           <FontAwesomeIcon
             onClick={decreasePositionHandler}
             icon={faMinusCircle}
-            className="btn"
+            className={`btn ${buying ? "" : "btn-disabled text-gray-400"}`}
           />
         </div>
       </div>

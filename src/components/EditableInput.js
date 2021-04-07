@@ -4,6 +4,7 @@ const EditableInput = ({
   displayText,
   input,
   childRef,
+  buying,
   className,
   ...props
 }) => {
@@ -32,7 +33,7 @@ const EditableInput = ({
     </div>
   ) : (
     <div
-      onClick={() => setEditing(true)}
+      onClick={() => setEditing(buying && true)}
       className={`cursor-pointer ${className}`}
       {...props}
     >

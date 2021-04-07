@@ -5,11 +5,12 @@ import Graph from "./components/Graph";
 import Transactions from "./components/Transactions";
 import { WalletIcon } from "./components/Icons";
 import { initialState, reducer } from "./reducer";
-import { getNextDay, generateData } from "./utils";
+import { parseDate } from "./utils";
+import BABA_DATA from "./BABA.json";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [series, setSeries] = useState(generateData);
+  const [series, setSeries] = useState([]);
   const [updating, setUpdating] = useState(false);
   const intervalRef = useRef(null);
 
@@ -21,14 +22,37 @@ function App() {
     } else {
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
-          let price = Math.abs(
-            (Math.random() - 0.48) * 6 + oldData[oldData.length - 1].y
-          );
+          // let price = Math.abs(
+          //   (Math.random() - 0.48) * 6 + oldData[oldData.length - 1].y
+          // );
+          const idx = oldData.length;
+          const price = BABA_DATA[idx].Close;
+          const date = parseDate(BABA_DATA[idx].Date);
 
           const newDataPoint = {
-            x: getNextDay(oldData[oldData.length - 1].x, 1),
-            y: price, // p(t+1) is dependent on p(t)
+            x: date,
+            y: price,
           };
+          if (idx > 0 && BABA_DATA[idx - 1].Indicator !== "") {
+            if (!BABA_DATA[idx - 1].Indicator) {
+              // 0 -> buy
+              dispatch({
+                type: "ALGO BUY",
+                buy: {
+                  price,
+                  date,
+                },
+              });
+            } else {
+              dispatch({
+                type: "ALGO SELL",
+                sell: {
+                  price,
+                  date,
+                },
+              });
+            }
+          }
           const newData = oldData.slice();
           // TODO Memory Leak issue
           // Array size will grow linearly without limits, probably need to find
@@ -63,7 +87,7 @@ function App() {
         </div>
       </nav>
       <div className="app">
-        <div className="main">
+        <div className="main mt-4">
           <div className="graph">
             <Graph series={series} annotation={state.annotation} />
           </div>
@@ -74,7 +98,13 @@ function App() {
             transactions={state.transactions}
             position={state.position}
           />
-          <Transactions className="mt-8" transactions={state.transactions} />
+          <h2 className="font-bold mt-8 text-4xl">Transactions</h2>
+          <Transactions className="mt-4" transactions={state.transactions} />
+          <h2 className="font-bold mt-16 text-4xl">Algorithm Transactions</h2>
+          <Transactions
+            className="mt-4 mb-8"
+            transactions={state.algoTransactions}
+          />
         </div>
       </div>
     </div>
