@@ -3,22 +3,12 @@ import React from "react";
 export default function Transactions({ transactions, className, ...props }) {
   // TODO integrate data from other components
   // TODO Change table headers
-  const data = [
-    {
-      date: "20 Nov 2021",
-      operation: "BUY",
-      quantity: 100,
-      price: 5,
-      money: "Open",
-    },
-    {
-      date: "21 Nov 2021",
-      operation: "SELL",
-      quantity: 100,
-      price: 5,
-      money: 1000,
-    },
-  ];
+  const allTransactions = [];
+  for (let i = 0; i < transactions.buy.length; i++) {
+    allTransactions.push(transactions.buy[i]);
+    if (i <= transactions.sell.length - 1)
+      allTransactions.push(transactions.sell[i]);
+  }
   return (
     <div className={`col-span-full ${className}`} {...props}>
       <table className="w-full border-collapse">
@@ -39,7 +29,7 @@ export default function Transactions({ transactions, className, ...props }) {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ date, operation, quantity, price, money }, idx) => {
+          {allTransactions.map(({ date, price, position }, idx) => {
             return (
               <tr
                 className={`border-b border-gray-200 ${
@@ -47,19 +37,25 @@ export default function Transactions({ transactions, className, ...props }) {
                 }`}
                 key={idx}
               >
-                <td className="py-3 pl-6 text-left">{date}</td>
+                <td className="py-3 pl-6 text-left">
+                  {date.toLocaleDateString()}
+                </td>
                 <td className="py-1 text-center">
                   <span
                     className={`${
-                      operation === "BUY" ? "bg-green-200" : "bg-red-200"
+                      idx % 2 === 0 ? "bg-green-200" : "bg-red-200"
                     } rounded-full py-1 px-4`}
                   >
-                    {operation}
+                    {idx % 2 === 0 ? "BUY" : "SELL"}
                   </span>
                 </td>
-                <td className="py-3 pr-4 text-right">{quantity}</td>
+                <td className="py-3 pr-4 text-right">{position}</td>
                 <td className="py-3 pr-4 text-right">{price}</td>
-                <td className="py-3 pr-6 text-right">{money}</td>
+                <td className="py-3 pr-6 text-right">
+                  {idx % 2 === 0
+                    ? "open"
+                    : position * (price / allTransactions[idx - 1].price)}
+                </td>
               </tr>
             );
           })}

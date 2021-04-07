@@ -2,7 +2,7 @@ const initialState = {
   cash: 1000,
   position: 100,
   transactions: {
-    buy: [],
+    buy: [], // {date, price, position}
     sell: [],
   },
   annotation: [],
@@ -15,11 +15,11 @@ const reducer = (state, action) => {
     case "BUY": {
       const transactions = {
         ...state.transactions,
-        buy: [...state.transactions.buy, action.buyPrice],
+        buy: [...state.transactions.buy, action.buy],
       };
       const annotation = [
         {
-          y: action.buyPrice,
+          y: action.buy.price,
           borderColor: "#006400",
           label: {
             borderColor: "#006400",
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
           },
         },
       ];
-      const cash = state.cash - action.position;
+      const cash = state.cash - action.buy.position;
       return {
         ...state,
         cash,
@@ -43,12 +43,13 @@ const reducer = (state, action) => {
     case "SELL":
       const transactions = {
         ...state.transactions,
-        sell: [...state.transactions.sell, action.sellPrice],
+        sell: [...state.transactions.sell, action.sell],
       };
       const cash =
         state.cash +
-        action.position *
-          (action.sellPrice / transactions.buy[transactions.buy.length - 1]);
+        action.sell.position *
+          (action.sell.price /
+            transactions.buy[transactions.buy.length - 1].price);
       return {
         ...state,
         transactions,

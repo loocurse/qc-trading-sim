@@ -9,8 +9,11 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
     // record down buy price
     dispatch({
       type: "BUY",
-      buyPrice: series[series.length - 1].y,
-      position: position,
+      buy: {
+        date: series[series.length - 1].x,
+        price: series[series.length - 1].y,
+        position,
+      },
     });
   };
 
@@ -18,8 +21,11 @@ function Buttons({ series, dispatch, cash, transactions, position }) {
     // recording down sell price
     dispatch({
       type: "SELL",
-      sellPrice: series[series.length - 1].y,
-      position: position,
+      sell: {
+        date: series[series.length - 1].x,
+        price: series[series.length - 1].y,
+        position,
+      },
     });
   };
 
