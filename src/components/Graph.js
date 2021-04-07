@@ -3,6 +3,7 @@ import Chart from "react-apexcharts";
 
 // const X_AXIS_RANGE = 1000 * 3600 * 24 * 1; // 1 day
 
+// TODO scale y axis so that the data range would not be obvious
 function Graph({ series, annotation }) {
   return (
     <div>

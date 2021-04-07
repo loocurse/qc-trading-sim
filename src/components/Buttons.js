@@ -3,32 +3,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import EditableInput from "./EditableInput";
 
-function Buttons({ series, dispatch, cash, transactions, position }) {
+function Buttons({ series, dispatch, cash, transactions, position, started }) {
   const inputRef = useRef(null);
 
   const buying = transactions.buy.length === transactions.sell.length;
   const buyEventHandler = () => {
     // record down buy price
-    dispatch({
-      type: "BUY",
-      buy: {
-        date: series[series.length - 1].x,
-        price: series[series.length - 1].y,
-        position,
-      },
-    });
+    started &&
+      dispatch({
+        type: "BUY",
+        buy: {
+          date: series[series.length - 1].x,
+          price: series[series.length - 1].y,
+          position,
+        },
+      });
   };
 
   const sellEventHandler = () => {
     // recording down sell price
-    dispatch({
-      type: "SELL",
-      sell: {
-        date: series[series.length - 1].x,
-        price: series[series.length - 1].y,
-        position,
-      },
-    });
+    started &&
+      dispatch({
+        type: "SELL",
+        sell: {
+          date: series[series.length - 1].x,
+          price: series[series.length - 1].y,
+          position,
+        },
+      });
   };
 
   const increasePositionHandler = () => {

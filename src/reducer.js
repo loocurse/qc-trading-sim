@@ -11,11 +11,13 @@ const initialState = {
     sell: [],
   },
   annotation: [],
+  started: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "BUY": {
+      if (!state.started) return state;
       const transactions = {
         ...state.transactions,
         buy: [...state.transactions.buy, action.buy],
@@ -125,6 +127,13 @@ const reducer = (state, action) => {
         };
       }
       return state;
+    }
+
+    case "START": {
+      return {
+        ...state,
+        started: true,
+      };
     }
 
     default:

@@ -24,9 +24,14 @@ function App() {
       clearInterval(intervalRef.current);
       setUpdating(false);
     } else {
+      dispatch({ type: "START" });
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
           const idx = oldData.length;
+          if (idx === BABA_DATA.length) {
+            triggerInterval();
+            return oldData;
+          }
           const price = BABA_DATA[idx].Close;
           const date = parseDate(BABA_DATA[idx].Date);
 
@@ -98,6 +103,7 @@ function App() {
             cash={state.cash}
             transactions={state.transactions}
             position={state.position}
+            started={state.started}
           />
           <h2 className="font-bold mt-8 text-4xl">Transactions</h2>
           <Transactions className="mt-4" transactions={state.transactions} />
