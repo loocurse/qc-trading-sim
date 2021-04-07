@@ -15,8 +15,6 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    // TODO transactions probably should include position and date to facilitate
-    // easier logging
     case "BUY": {
       const transactions = {
         ...state.transactions,

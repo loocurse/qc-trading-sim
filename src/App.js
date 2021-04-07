@@ -14,7 +14,11 @@ function App() {
   const [updating, setUpdating] = useState(false);
   const intervalRef = useRef(null);
 
-  // Every 1 seconds, append to data
+  // TODO slower updating interval
+  // TODO buy button to be disabled prior to starting the simulation
+  // TODO End the simulation after a certain time period
+  // TODO Modal at the end to show algorithm's pnl vs participant's pnl
+  // Every 0.5 seconds, append to data
   const triggerInterval = () => {
     if (updating) {
       clearInterval(intervalRef.current);
@@ -22,9 +26,6 @@ function App() {
     } else {
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
-          // let price = Math.abs(
-          //   (Math.random() - 0.48) * 6 + oldData[oldData.length - 1].y
-          // );
           const idx = oldData.length;
           const price = BABA_DATA[idx].Close;
           const date = parseDate(BABA_DATA[idx].Date);

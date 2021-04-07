@@ -1,8 +1,7 @@
 import React from "react";
 
 export default function Transactions({ transactions, className, ...props }) {
-  // TODO integrate data from other components
-  // TODO Change table headers
+  // TODO show PnL percentage with respect to position
   const allTransactions = [];
   for (let i = 0; i < transactions.buy.length; i++) {
     allTransactions.push(transactions.buy[i]);
