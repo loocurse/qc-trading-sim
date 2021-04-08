@@ -11,13 +11,13 @@ const initialState = {
     sell: [],
   },
   annotation: [],
-  started: false,
+  status: "WAITING", // WAITING, STARTED, ENDED
+  modalOpen: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "BUY": {
-      if (!state.started) return state;
       const transactions = {
         ...state.transactions,
         buy: [...state.transactions.buy, action.buy],
@@ -88,7 +88,6 @@ const reducer = (state, action) => {
         state.algoPosition *
         (action.sell.price /
           algoTransactions.buy[algoTransactions.buy.length - 1].price);
-      console.log(algoPosition);
       return {
         ...state,
         algoPosition,
@@ -132,7 +131,29 @@ const reducer = (state, action) => {
     case "START": {
       return {
         ...state,
-        started: true,
+        status: "STARTED",
+      };
+    }
+
+    case "END": {
+      return {
+        ...state,
+        status: "ENDED",
+        modalOpen: true,
+      };
+    }
+
+    case "HIDE MODAL": {
+      return {
+        ...state,
+        modalOpen: false,
+      };
+    }
+
+    case "SHOW MODAL": {
+      return {
+        ...state,
+        modalOpen: true,
       };
     }
 

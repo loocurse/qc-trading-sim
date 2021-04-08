@@ -1,13 +1,33 @@
 import React from "react";
 
 export default function Transactions({ transactions, className, ...props }) {
-  // TODO show PnL percentage with respect to position
   const allTransactions = [];
   for (let i = 0; i < transactions.buy.length; i++) {
     allTransactions.push(transactions.buy[i]);
     if (i <= transactions.sell.length - 1)
       allTransactions.push(transactions.sell[i]);
   }
+
+  const calculatePnL = (position, price, idx) => {
+    const PnL = (position * (price / allTransactions[idx - 1].price)).toFixed(
+      2
+    );
+    const percentage = Math.round(((PnL - position) / position) * 100);
+    return (
+      <>
+        <p className="block">{PnL}</p>
+        <p
+          className={`text-xs ${
+            percentage >= 0 ? "text-green-600" : "text-red-600"
+          }`}
+        >
+          {percentage >= 0 ? "+" : ""}
+          {percentage}%
+        </p>
+      </>
+    );
+  };
+
   return (
     <div
       className={`col-span-full overflow-y-auto max-h-80 ${className}`}
@@ -15,15 +35,15 @@ export default function Transactions({ transactions, className, ...props }) {
     >
       <table className="w-full border-collapse">
         <colgroup>
-          {Array(5)
-            .fill()
-            .map((_, idx) => (
-              <col style={{ width: "20%" }} key={idx}></col>
-            ))}
+          <col style={{ width: "25%" }}></col>
+          <col style={{ width: "15%" }}></col>
+          <col style={{ width: "20%" }}></col>
+          <col style={{ width: "15%" }}></col>
+          <col style={{ width: "25%" }}></col>
         </colgroup>
         <thead>
           <tr className="bg-gray-200 text-gray-600">
-            <th className="py-3 pl-6 text-left">Settle Date</th>
+            <th className="py-3 pl-6 text-left">Date</th>
             <th className="py-3 text-center">Operation </th>
             <th className="py-3 pr-4 text-right">Position</th>
             <th className="py-3 pr-4 text-right">Price</th>
@@ -39,7 +59,7 @@ export default function Transactions({ transactions, className, ...props }) {
                 }`}
                 key={idx}
               >
-                <td className="py-3 pl-6 text-left">
+                <td className="py-5 pl-6 text-left">
                   {date.toLocaleDateString()}
                 </td>
                 <td className="py-1 text-center">
@@ -56,12 +76,7 @@ export default function Transactions({ transactions, className, ...props }) {
                 <td className="py-3 pr-4 text-right">{position.toFixed(2)}</td>
                 <td className="py-3 pr-4 text-right">{price.toFixed(2)}</td>
                 <td className="py-3 pr-6 text-right">
-                  {idx % 2 === 0
-                    ? "open"
-                    : (
-                        position *
-                        (price / allTransactions[idx - 1].price)
-                      ).toFixed(2)}
+                  {idx % 2 === 0 ? "open" : calculatePnL(position, price, idx)}
                 </td>
               </tr>
             );
