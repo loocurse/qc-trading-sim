@@ -9,7 +9,7 @@ import {
 } from "./components";
 import { initialState, reducer } from "./reducer";
 import { parseDate } from "./utils";
-import BABA_DATA from "./BABA.json";
+import BABA_DATA from "./mockdata/BABA.json";
 import FundamentalInfo from "./components/FundamentalInfo";
 
 function App() {
@@ -17,6 +17,8 @@ function App() {
   const [series, setSeries] = useState([]);
   const [updating, setUpdating] = useState(false);
   const intervalRef = useRef(null);
+
+  const priceData = BABA_DATA.prices;
 
   // TODO slower updating interval
   // Every 0.5 seconds, append to data
@@ -28,16 +30,16 @@ function App() {
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
           const idx = oldData.length;
-          if (idx === BABA_DATA.length) {
+          if (idx === priceData.length) {
             clearInterval(intervalRef.current);
             setUpdating(false);
             dispatch({ type: "END" });
             return oldData;
           }
-          const price = BABA_DATA[idx].Close;
-          const date = parseDate(BABA_DATA[idx].Date);
-          if (idx > 0 && BABA_DATA[idx - 1].Indicator !== "") {
-            if (!BABA_DATA[idx - 1].Indicator) {
+          const price = priceData[idx].Close;
+          const date = parseDate(priceData[idx].Date);
+          if (idx > 0 && priceData[idx - 1].Indicator !== "") {
+            if (!priceData[idx - 1].Indicator) {
               // 0 -> buy
               dispatch({
                 type: "ALGO BUY",

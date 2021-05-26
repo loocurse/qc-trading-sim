@@ -1,49 +1,58 @@
 import React from "react";
+import BABA_DATA from "../mockdata/BABA.json";
 
 function FundamentalInfo() {
+  const { fundamental } = BABA_DATA;
+
   return (
     <div className="flex flex-row fundamental_table my-4 justify-center ml-10">
       <table className="border-right-table">
-        <tr>
-          <td>Open</td>
-          <td>200.3</td>
-        </tr>
-        <tr>
-          <td>High</td>
-          <td>274.2</td>
-        </tr>
-        <tr>
-          <td>Low</td>
-          <td>198.2</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Open</td>
+            <td>{fundamental.open}</td>
+          </tr>
+          <tr>
+            <td>High</td>
+            <td>{fundamental.high}</td>
+          </tr>
+          <tr>
+            <td>Low</td>
+            <td>{fundamental.low}</td>
+          </tr>
+        </tbody>
       </table>
       <table className="border-right-table">
-        <tr>
-          <td>Volume</td>
-          <td>14.01M</td>
-        </tr>
-        <tr>
-          <td>P/E</td>
-          <td>105.2</td>
-        </tr>
-        <tr>
-          <td>Market Cap</td>
-          <td>574.8.6B</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>Volume</td>
+            <td>{fundamental.volume}M</td>
+          </tr>
+          <tr>
+            <td>P/E</td>
+            <td>{fundamental.PE}</td>
+          </tr>
+          <tr>
+            <td>Market Cap</td>
+            <td>{fundamental.marketcap}B</td>
+          </tr>
+        </tbody>
       </table>
       <table>
-        <tr>
-          <td>52W H</td>
-          <td>429.2</td>
-        </tr>
-        <tr>
-          <td>52W L</td>
-          <td>160.2</td>
-        </tr>
-        <tr>
-          <td>Avg Volume</td>
-          <td>16.88M</td>
-        </tr>
+        <tbody>
+          <tr>
+            <td>52W H</td>
+            <td>{fundamental.yearhigh}</td>
+          </tr>
+          <tr>
+            <td>52W L</td>
+            <td>{fundamental.yearlow}</td>
+          </tr>
+          <tr>
+            <td>Avg Volume</td>
+            <td>{fundamental.averagevol}M</td>
+          </tr>
+        </tbody>
       </table>
     </div>
   );
