@@ -88,7 +88,6 @@ td {
   border: none;
 }
 
-
 .fundamental_table {
   table {
     margin: 0 30px;
@@ -105,4 +104,37 @@ td {
       }
     }
   }
+}
+
+.dropdown {
+  button {
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 2rem;
+    background-color: rgb(242, 251, 253);
+  }
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  left: 2rem;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+.dropdown-content p {
+  color: black;
+  margin: 0;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  &:hover {
+    background-color: #f1f1f1
+  }
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }
