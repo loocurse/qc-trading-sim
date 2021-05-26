@@ -143,14 +143,14 @@ const reducer = (state, action) => {
       };
     }
 
-    case "HIDE MODAL": {
+    case "HIDE RESULT MODAL": {
       return {
         ...state,
         modalOpen: false,
       };
     }
 
-    case "SHOW MODAL": {
+    case "SHOW RESULT MODAL": {
       return {
         ...state,
         modalOpen: true,

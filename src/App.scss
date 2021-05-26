@@ -87,3 +87,22 @@ nav {
 td {
   border: none;
 }
+
+
+.fundamental_table {
+  table {
+    margin: 0 30px;
+    tr {
+      td {
+        width: 90px;
+        &:first-child {
+          opacity: 0.6;
+        }
+        &:nth-child(2) {
+          font-weight: bold;
+          text-align: right;
+        }
+      }
+    }
+  }
+}

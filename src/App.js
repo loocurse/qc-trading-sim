@@ -10,6 +10,7 @@ import {
 import { initialState, reducer } from "./reducer";
 import { parseDate } from "./utils";
 import BABA_DATA from "./BABA.json";
+import FundamentalInfo from "./components/FundamentalInfo";
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -21,7 +22,7 @@ function App() {
   // Every 0.5 seconds, append to data
   const triggerInterval = () => {
     if (state.status === "ENDED") {
-      dispatch({ type: "SHOW MODAL" });
+      dispatch({ type: "SHOW RESULT MODAL" });
     } else if (!updating) {
       if (state.status === "WAITING") dispatch({ type: "START" });
       intervalRef.current = setInterval(() => {
@@ -87,8 +88,9 @@ function App() {
               dispatch={dispatch}
             />
           )}
-          <div className="graph">
+          <div className="graph d-flex flex-col">
             <Graph series={series} annotation={state.annotation} />
+            <FundamentalInfo />
           </div>
           <Buttons
             series={series}

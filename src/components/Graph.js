@@ -4,7 +4,7 @@ import Chart from "react-apexcharts";
 function Graph({ series, annotation }) {
   return (
     <div>
-      <h2>
+      <h2 className="mt-5">
         <em>NYSE: BABA</em>
       </h2>
       <Chart

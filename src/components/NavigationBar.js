@@ -4,7 +4,7 @@ const NavigationBar = ({ buttonCallback, updating, status }) => {
   return (
     <nav>
       <div className="flex flex-1"></div>
-      <h1 className="font-bold">Trading portal</h1>
+      <h1 className="font-bold text-3xl">Trading portal</h1>
       <div className="flex flex-1 justify-end items-center">
         <button
           onClick={buttonCallback}
