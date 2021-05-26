@@ -1,21 +1,17 @@
 import React from "react";
 import Chart from "react-apexcharts";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 
-function Graph({ series, annotation }) {
+function Graph({ series, annotation, dispatch, ticker }) {
   const tickerHandler = (event) => {
-    setTicker(event.target.innerHTML);
+    dispatch({ type: "CHANGE TICKER", ticker: event.target.innerHTML });
   };
-
-  const [ticker, setTicker] = useState("NYSE: BABA");
-
   return (
     <div>
       <div className="mt-5 dropdown">
         <button>
-          {ticker} <FontAwesomeIcon icon={faCaretDown}/>
+          {ticker} <FontAwesomeIcon icon={faCaretDown} />
         </button>
         <div className="dropdown-content">
           <p onClick={tickerHandler}>NASDAQ: AAPL</p>
@@ -24,6 +20,7 @@ function Graph({ series, annotation }) {
           <p onClick={tickerHandler}>NYSE: BABA</p>
         </div>
       </div>
+
       <Chart
         options={{
           chart: {

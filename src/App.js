@@ -91,8 +91,13 @@ function App() {
             />
           )}
           <div className="graph d-flex flex-col">
-            <Graph series={series} annotation={state.annotation} />
-            <FundamentalInfo />
+            <Graph
+              series={series}
+              annotation={state.annotation}
+              ticker={state.ticker}
+              dispatch={dispatch}
+            />
+            <FundamentalInfo state={state} />
           </div>
           <Buttons
             series={series}

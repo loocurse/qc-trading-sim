@@ -1,4 +1,5 @@
 const initialState = {
+  ticker: 'NYSE: BABA',
   cash: 1000,
   position: 100,
   algoPosition: 1000,
@@ -155,6 +156,13 @@ const reducer = (state, action) => {
         ...state,
         modalOpen: true,
       };
+    }
+    case "CHANGE TICKER": {
+      return {
+        ...state,
+        ticker: action.ticker,
+      }
+
     }
 
     default:
