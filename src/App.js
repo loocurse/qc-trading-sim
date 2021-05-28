@@ -6,6 +6,8 @@ import {
   Transactions,
   NavigationBar,
   ResultModal,
+  FinancialChart,
+  MyRouter,
 } from "./components";
 import { initialState, reducer } from "./reducer";
 import { parseDate } from "./utils";
@@ -75,59 +77,61 @@ function App() {
   };
 
   return (
-    <div>
-      <NavigationBar
-        buttonCallback={triggerInterval}
-        updating={updating}
-        status={state.status}
-      />
-      <div className="app">
-        <div className="main mt-4">
-          {state.status === "ENDED" && state.modalOpen && (
-            <ResultModal
-              cash={state.cash}
-              algoPosition={state.algoPosition}
-              dispatch={dispatch}
-            />
-          )}
-          <div className="graph d-flex flex-col">
-            <Graph
-              series={series}
-              annotation={state.annotation}
-              ticker={state.ticker}
-              dispatch={dispatch}
-            />
-            <FundamentalInfo state={state} />
-          </div>
-          <Buttons
-            series={series}
-            dispatch={dispatch}
-            cash={state.cash}
-            transactions={state.transactions}
-            position={state.position}
-            status={state.status}
-          />
-          <div className="mt-8 flex w-full col-span-full space-x-12">
-            <div className="flex-1">
-              <h2 className="font-bold text-4xl">My History</h2>
-              <Transactions
-                className="mt-4"
-                transactions={state.transactions}
+    <MyRouter testComponent={FinancialChart}>
+      <div>
+        <NavigationBar
+          buttonCallback={triggerInterval}
+          updating={updating}
+          status={state.status}
+        />
+        <div className="app">
+          <div className="main mt-4">
+            {state.status === "ENDED" && state.modalOpen && (
+              <ResultModal
+                cash={state.cash}
+                algoPosition={state.algoPosition}
+                dispatch={dispatch}
               />
+            )}
+            <div className="graph d-flex flex-col">
+              <Graph
+                series={series}
+                annotation={state.annotation}
+                ticker={state.ticker}
+                dispatch={dispatch}
+              />
+              <FundamentalInfo state={state} />
             </div>
-            <div className="flex-1">
-              <h2 className="font-bold text-4xl text-right">
-                Algorithm History
-              </h2>
-              <Transactions
-                className="mt-4 mb-8"
-                transactions={state.algoTransactions}
-              />
+            <Buttons
+              series={series}
+              dispatch={dispatch}
+              cash={state.cash}
+              transactions={state.transactions}
+              position={state.position}
+              status={state.status}
+            />
+            <div className="mt-8 flex w-full col-span-full space-x-12">
+              <div className="flex-1">
+                <h2 className="font-bold text-4xl">My History</h2>
+                <Transactions
+                  className="mt-4"
+                  transactions={state.transactions}
+                />
+              </div>
+              <div className="flex-1">
+                <h2 className="font-bold text-4xl text-right">
+                  Algorithm History
+                </h2>
+                <Transactions
+                  className="mt-4 mb-8"
+                  transactions={state.algoTransactions}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </MyRouter>
   );
 }
 
