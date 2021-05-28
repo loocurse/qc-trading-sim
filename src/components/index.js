@@ -5,5 +5,4 @@ export { default as NavigationBar } from "./NavigationBar";
 export { default as Transactions } from "./Transactions";
 export { default as ResultModal } from "./ResultModal";
 export * from "./FinancialChart";
-export * from "./MyRouter";
 export * from "./Icons";
