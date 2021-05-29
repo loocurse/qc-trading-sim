@@ -1,6 +1,12 @@
 import React from "react";
 
-const NavigationBar = ({ buttonCallback, updating, status }) => {
+type NavigationProps = {
+  buttonCallback: () => void;
+  updating: boolean;
+  status: "WAITING"| "STARTED" | "ENDED";
+}
+
+const NavigationBar: React.FC<NavigationProps> = ({ buttonCallback, updating, status }) => {
   return (
     <nav>
       <div className="flex flex-1"></div>
@@ -13,10 +19,10 @@ const NavigationBar = ({ buttonCallback, updating, status }) => {
           {status === "WAITING"
             ? "Start"
             : status === "ENDED"
-            ? "Show Results"
-            : updating
-            ? "Pause"
-            : "Resume"}
+              ? "Show Results"
+              : updating
+                ? "Pause"
+                : "Resume"}
         </button>
       </div>
     </nav>

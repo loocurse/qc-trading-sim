@@ -7,12 +7,14 @@ import {
   NavigationBar,
   ResultModal,
 } from "./components";
+import React from "react";
 import { initialState, reducer } from "./reducer";
 import { parseDate } from "./utils";
 import BABA_DATA from "./mockdata/BABA.json";
 import FundamentalInfo from "./components/FundamentalInfo";
+import { ActionTypes } from "./reducer";
 
-function App() {
+function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [series, setSeries] = useState([]);
   const [updating, setUpdating] = useState(false);
@@ -24,16 +26,16 @@ function App() {
   // Every 0.5 seconds, append to data
   const triggerInterval = () => {
     if (state.status === "ENDED") {
-      dispatch({ type: "SHOW RESULT MODAL" });
+      dispatch({ type: ActionTypes.showResultModal });
     } else if (!updating) {
-      if (state.status === "WAITING") dispatch({ type: "START" });
+      if (state.status === "WAITING") dispatch({ type: ActionTypes.start });
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
           const idx = oldData.length;
           if (idx === priceData.length) {
             clearInterval(intervalRef.current);
             setUpdating(false);
-            dispatch({ type: "END" });
+            dispatch({ type: ActionTypes.end });
             return oldData;
           }
           const price = priceData[idx].Close;
@@ -42,7 +44,7 @@ function App() {
             if (!priceData[idx - 1].Indicator) {
               // 0 -> buy
               dispatch({
-                type: "ALGO BUY",
+                type: ActionTypes.algoBuy,
                 buy: {
                   price,
                   date,
@@ -50,7 +52,7 @@ function App() {
               });
             } else {
               dispatch({
-                type: "ALGO SELL",
+                type: ActionTypes.algoSell,
                 sell: {
                   price,
                   date,
@@ -97,7 +99,7 @@ function App() {
               ticker={state.ticker}
               dispatch={dispatch}
             />
-            <FundamentalInfo state={state} />
+            <FundamentalInfo />
           </div>
           <Buttons
             series={series}

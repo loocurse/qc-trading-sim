@@ -3,6 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import EditableInput from "./EditableInput";
 
+type ButtonProps = {
+  series: never[]
+  dispatch: React.Dispatch<Action>;
+}
+
 function Buttons({ series, dispatch, cash, transactions, position, status }) {
   const inputRef = useRef(null);
 

@@ -1,6 +1,12 @@
 import React from "react";
 import { RobotIcon, UserIcon } from "./Icons";
 
+//type ModalProps = {
+//  cash: number;
+//  algoPosition: number;
+  
+//}
+
 const ResultModal = ({ cash, algoPosition, dispatch }) => {
   const userPercent = Math.round(((cash - 1000) / 1000) * 100);
   const algoPercent = Math.round(((algoPosition - 1000) / 1000) * 100);
