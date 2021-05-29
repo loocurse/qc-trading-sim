@@ -1,10 +1,10 @@
-type transactionObject = {
+export type transactionObject = {
   date: Date;
   price: number;
   position?: number;
 }
 
-type State = {
+export type State = {
   ticker: string;
   cash: number;
   position: number;
@@ -55,7 +55,7 @@ export enum ActionTypes {
   changeTicker = "CHANGE TICKER"
 }
 
-type Action = {
+export type Action = {
   type: ActionTypes;
   buy?: transactionObject;
   sell?: transactionObject;
@@ -66,7 +66,7 @@ type Action = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
   case ActionTypes.buy: {
-    if (!action.buy){
+    if (!action.buy || !action.buy.position){
       throw Error("Payload incorrect");
     }
     const transactions = {
@@ -97,7 +97,7 @@ const reducer = (state: State, action: Action): State => {
   }
 
   case ActionTypes.sell: {
-    if (!action.sell) {
+    if (!action.sell || !action.sell.position) {
       throw Error("Payload incorrect");
     }
     const transactions = {

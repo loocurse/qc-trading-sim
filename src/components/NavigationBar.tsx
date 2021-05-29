@@ -5,8 +5,7 @@ type NavigationProps = {
   updating: boolean;
   status: "WAITING"| "STARTED" | "ENDED";
 }
-
-const NavigationBar: React.FC<NavigationProps> = ({ buttonCallback, updating, status }) => {
+function NavigationBar({ buttonCallback, updating, status }: NavigationProps): React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
   return (
     <nav>
       <div className="flex flex-1"></div>
@@ -27,6 +26,6 @@ const NavigationBar: React.FC<NavigationProps> = ({ buttonCallback, updating, st
       </div>
     </nav>
   );
-};
+}
 
 export default NavigationBar;

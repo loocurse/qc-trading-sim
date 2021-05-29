@@ -14,11 +14,15 @@ import BABA_DATA from "./mockdata/BABA.json";
 import FundamentalInfo from "./components/FundamentalInfo";
 import { ActionTypes } from "./reducer";
 
+type series = {
+
+}
+
 function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [series, setSeries] = useState([]);
   const [updating, setUpdating] = useState(false);
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const priceData = BABA_DATA.prices;
 
@@ -31,8 +35,10 @@ function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HT
       if (state.status === "WAITING") dispatch({ type: ActionTypes.start });
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
+          console.log(oldData)
           const idx = oldData.length;
           if (idx === priceData.length) {
+            // Reach end of game
             clearInterval(intervalRef.current);
             setUpdating(false);
             dispatch({ type: ActionTypes.end });
