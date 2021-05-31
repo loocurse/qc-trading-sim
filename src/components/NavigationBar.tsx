@@ -1,6 +1,11 @@
 import React from "react";
 
-const NavigationBar = ({ buttonCallback, updating, status }) => {
+type NavigationProps = {
+  buttonCallback: () => void;
+  updating: boolean;
+  status: "WAITING"| "STARTED" | "ENDED";
+}
+function NavigationBar({ buttonCallback, updating, status }: NavigationProps): JSX.Element {
   return (
     <nav>
       <div className="flex flex-1"></div>
@@ -13,14 +18,14 @@ const NavigationBar = ({ buttonCallback, updating, status }) => {
           {status === "WAITING"
             ? "Start"
             : status === "ENDED"
-            ? "Show Results"
-            : updating
-            ? "Pause"
-            : "Resume"}
+              ? "Show Results"
+              : updating
+                ? "Pause"
+                : "Resume"}
         </button>
       </div>
     </nav>
   );
-};
+}
 
 export default NavigationBar;

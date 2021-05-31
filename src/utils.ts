@@ -1,11 +1,11 @@
-const getNextDay = (date, days) => {
+const getNextDay = (date: Date, days: number): Date => {
   const nextDay = new Date(date);
   nextDay.setDate(nextDay.getDate() + days);
   return nextDay;
 };
 
-const generateData = () => {
-  let xaxis = [];
+const generateData = (): { x: Date, y: number }[] => {
+  const xaxis = [];
   const date = new Date();
   for (let i = 0; i < 10; i++) {
     xaxis.push(getNextDay(date, i));
@@ -16,7 +16,7 @@ const generateData = () => {
   });
 }; // [{x: day 1, y: price}, {x: day 2, y: price}, ...]
 
-const parseDate = (str) => {
+const parseDate = (str: string): Date => {
   const parts = str.split("/");
   const date = new Date(
     parseInt("20" + parts[2], 10),

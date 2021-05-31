@@ -1,15 +1,23 @@
 import React from "react";
+import { transactionObject } from "../reducer";
 
-export default function Transactions({ transactions, className, ...props }) {
-  const allTransactions = [];
+type TransactionsType = {
+  transactions: {
+    buy: transactionObject[];
+    sell: transactionObject[];
+  };
+  className: string;
+}
+export default function Transactions({ transactions, className, ...props }: TransactionsType): JSX.Element {
+  const allTransactions: transactionObject[] = [];
   for (let i = 0; i < transactions.buy.length; i++) {
     allTransactions.push(transactions.buy[i]);
     if (i <= transactions.sell.length - 1)
       allTransactions.push(transactions.sell[i]);
   }
 
-  const calculatePnL = (position, price, idx) => {
-    const PnL = (position * (price / allTransactions[idx - 1].price)).toFixed(
+  const calculatePnL = (position: number, price: number, idx: number) => {
+    const PnL = +(position * (price / allTransactions[idx - 1].price)).toFixed(
       2
     );
     const percentage = Math.round(((PnL - position) / position) * 100);
@@ -73,10 +81,10 @@ export default function Transactions({ transactions, className, ...props }) {
                     {idx % 2 === 0 ? "BUY" : "SELL"}
                   </span>
                 </td>
-                <td className="py-3 pr-4 text-right">{position.toFixed(2)}</td>
+                <td className="py-3 pr-4 text-right">{position && position.toFixed(2)}</td>
                 <td className="py-3 pr-4 text-right">{price.toFixed(2)}</td>
                 <td className="py-3 pr-6 text-right">
-                  {idx % 2 === 0 ? "open" : calculatePnL(position, price, idx)}
+                  {idx % 2 === 0 ? "open" : position && calculatePnL(position, price, idx)}
                 </td>
               </tr>
             );

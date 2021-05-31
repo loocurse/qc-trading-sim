@@ -2,16 +2,26 @@ import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import EditableInput from "./EditableInput";
+import { Action, ActionTypes, transactionObject } from "../reducer"; 
 
-function Buttons({ series, dispatch, cash, transactions, position, status }) {
-  const inputRef = useRef(null);
+type ButtonProps = {
+  series: {x:Date, y:number}[];
+  dispatch: React.Dispatch<Action>;
+  cash: number;
+  transactions: {buy: transactionObject[], sell: transactionObject[]},
+  position: number;
+  status: "WAITING" | "STARTED" | "ENDED";
+}
+
+function Buttons({ series, dispatch, cash, transactions, position, status }: ButtonProps): JSX.Element {
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const buying = transactions.buy.length === transactions.sell.length;
   const buyEventHandler = () => {
     // record down buy price
     status === "STARTED" &&
       dispatch({
-        type: "BUY",
+        type: ActionTypes.buy,
         buy: {
           date: series[series.length - 1].x,
           price: series[series.length - 1].y,
@@ -24,7 +34,7 @@ function Buttons({ series, dispatch, cash, transactions, position, status }) {
     // recording down sell price
     status === "STARTED" &&
       dispatch({
-        type: "SELL",
+        type: ActionTypes.sell,
         sell: {
           date: series[series.length - 1].x,
           price: series[series.length - 1].y,
@@ -34,10 +44,10 @@ function Buttons({ series, dispatch, cash, transactions, position, status }) {
   };
 
   const increasePositionHandler = () => {
-    buying && dispatch({ type: "INCREASE POSITION" });
+    buying && dispatch({ type: ActionTypes.increasePosition });
   };
   const decreasePositionHandler = () => {
-    buying && dispatch({ type: "DECREASE POSITION" });
+    buying && dispatch({ type: ActionTypes.decreasePosition });
   };
 
   return (
@@ -69,18 +79,19 @@ function Buttons({ series, dispatch, cash, transactions, position, status }) {
               onBlur={(e) => {
                 if (e.target.value.match("^[0-9]+$"))
                   dispatch({
-                    type: "SET POSITION",
+                    type: ActionTypes.setPosition,
                     position: Number(e.target.value),
                   });
               }}
               onKeyDown={(e) => {
+                const target = e.target as HTMLInputElement;
                 if (
                   ["Enter", "Escape", "Tab"].indexOf(e.key) > -1 &&
-                  e.target.value.match("^[0-9]+$")
+                  target.value.match("^[0-9]+$")
                 ) {
                   dispatch({
-                    type: "SET POSITION",
-                    position: Number(e.target.value),
+                    type: ActionTypes.setPosition,
+                    position: Number(target.value),
                   });
                 }
               }}
