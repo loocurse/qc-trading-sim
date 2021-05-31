@@ -4,9 +4,8 @@ type EditableInputProps = {
   displayText: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
   input: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
   className: "" | "cursor-not-allowed";
-  childRef: React.MutableRefObject<null>;
+  childRef: React.RefObject<HTMLInputElement>;
   buying: boolean;
-
 }
 
 function EditableInput({

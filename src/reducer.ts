@@ -4,6 +4,20 @@ export type transactionObject = {
   position?: number;
 }
 
+export type annotation = {
+  y: number;
+  borderColor: string;
+  label: {
+    borderColor: string;
+    style: {
+      color: string;
+      background: string;
+    }
+    text: string;
+  }
+}[]
+
+
 export type State = {
   ticker: string;
   cash: number;
@@ -17,7 +31,7 @@ export type State = {
     buy: transactionObject[];
     sell: transactionObject[];
   };
-  annotation: any;
+  annotation: annotation;
   status: "WAITING" | "STARTED" | "ENDED";
   modalOpen: boolean;
 }

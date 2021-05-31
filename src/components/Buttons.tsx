@@ -14,7 +14,7 @@ type ButtonProps = {
 }
 
 function Buttons({ series, dispatch, cash, transactions, position, status }: ButtonProps): JSX.Element {
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const buying = transactions.buy.length === transactions.sell.length;
   const buyEventHandler = () => {
