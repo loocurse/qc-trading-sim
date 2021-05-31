@@ -1,5 +1,5 @@
 import React from "react";
-import BABA_DATA from "../mockdata/BABA.json";
+import BABA_DATA from "../api/BABA.json";
 
 function FundamentalInfo(): JSX.Element {
   const { fundamental } = BABA_DATA;
