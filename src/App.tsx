@@ -14,13 +14,10 @@ import BABA_DATA from "./mockdata/BABA.json";
 import FundamentalInfo from "./components/FundamentalInfo";
 import { ActionTypes } from "./reducer";
 
-type series = {
-
-}
 
 function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [series, setSeries] = useState([]);
+  const [series, setSeries] = useState<{x: Date, y: number}[]>([]);
   const [updating, setUpdating] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -35,11 +32,11 @@ function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HT
       if (state.status === "WAITING") dispatch({ type: ActionTypes.start });
       intervalRef.current = setInterval(() => {
         setSeries((oldData) => {
-          console.log(oldData)
+          console.log(oldData);
           const idx = oldData.length;
           if (idx === priceData.length) {
             // Reach end of game
-            clearInterval(intervalRef.current);
+            intervalRef.current && clearInterval(intervalRef.current);
             setUpdating(false);
             dispatch({ type: ActionTypes.end });
             return oldData;
@@ -77,7 +74,7 @@ function App(): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HT
       }, 500);
       setUpdating(true);
     } else {
-      clearInterval(intervalRef.current);
+      intervalRef.current && clearInterval(intervalRef.current);
       setUpdating(false);
     }
   };

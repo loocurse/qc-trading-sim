@@ -5,7 +5,7 @@ import EditableInput from "./EditableInput";
 import { Action, ActionTypes, transactionObject } from "../reducer"; 
 
 type ButtonProps = {
-  series: never[]
+  series: {x:Date, y:number}[];
   dispatch: React.Dispatch<Action>;
   cash: number;
   transactions: {buy: transactionObject[], sell: transactionObject[]},
@@ -13,7 +13,7 @@ type ButtonProps = {
   status: "WAITING" | "STARTED" | "ENDED";
 }
 
-function Buttons({ series, dispatch, cash, transactions, position, status }: ButtonProps): React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+function Buttons({ series, dispatch, cash, transactions, position, status }: ButtonProps): JSX.Element {
   const inputRef = useRef(null);
 
   const buying = transactions.buy.length === transactions.sell.length;

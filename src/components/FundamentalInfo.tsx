@@ -1,7 +1,7 @@
 import React from "react";
 import BABA_DATA from "../mockdata/BABA.json";
 
-function FundamentalInfo() {
+function FundamentalInfo(): JSX.Element {
   const { fundamental } = BABA_DATA;
 
   return (

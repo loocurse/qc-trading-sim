@@ -5,7 +5,7 @@ type NavigationProps = {
   updating: boolean;
   status: "WAITING"| "STARTED" | "ENDED";
 }
-function NavigationBar({ buttonCallback, updating, status }: NavigationProps): React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
+function NavigationBar({ buttonCallback, updating, status }: NavigationProps): JSX.Element {
   return (
     <nav>
       <div className="flex flex-1"></div>

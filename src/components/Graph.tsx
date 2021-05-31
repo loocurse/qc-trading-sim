@@ -2,10 +2,20 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { Action, ActionTypes } from "../reducer";
 
-function Graph({ series, annotation, dispatch, ticker }) {
-  const tickerHandler = (event) => {
-    dispatch({ type: "CHANGE TICKER", ticker: event.target.innerHTML });
+type GraphProps = {
+  series: {x: Date, y: number}[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  annotation: any[];
+  dispatch: React.Dispatch<Action>;
+  ticker: string;
+}
+
+function Graph({ series, annotation, dispatch, ticker }: GraphProps): JSX.Element {
+  const tickerHandler = (event: React.MouseEvent<HTMLParagraphElement>) => {
+    const target = event.target as Element;
+    dispatch({ type: ActionTypes.changeTicker, ticker: target.innerHTML });
   };
   return (
     <div>
@@ -51,7 +61,7 @@ function Graph({ series, annotation, dispatch, ticker }) {
             // max: 320,
             // min: 180,
             labels: {
-              formatter: (val) => {
+              formatter: (val: number) => {
                 return val.toFixed(0);
               },
             },

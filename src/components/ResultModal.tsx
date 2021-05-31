@@ -1,13 +1,14 @@
 import React from "react";
 import { RobotIcon, UserIcon } from "./Icons";
+import { Action, ActionTypes } from "../reducer"; 
 
-//type ModalProps = {
-//  cash: number;
-//  algoPosition: number;
-  
-//}
+type ModalProps = {
+  cash: number;
+  algoPosition: number;
+  dispatch: React.Dispatch<Action>;
+}
 
-const ResultModal = ({ cash, algoPosition, dispatch }) => {
+const ResultModal = ({ cash, algoPosition, dispatch }: ModalProps): JSX.Element => {
   const userPercent = Math.round(((cash - 1000) / 1000) * 100);
   const algoPercent = Math.round(((algoPosition - 1000) / 1000) * 100);
   return (
@@ -38,7 +39,7 @@ const ResultModal = ({ cash, algoPosition, dispatch }) => {
                   className="text-lg leading-6 text-gray-900 text-center font-bold"
                   id="modal-title"
                 >
-                  Time's Up!
+                  {"Time's Up!"}
                 </h3>
                 <div className="text-center mt-8">
                   <p className="font-bold text-4xl text-gray-500">You Lost</p>
@@ -113,7 +114,7 @@ const ResultModal = ({ cash, algoPosition, dispatch }) => {
             <button
               type="button"
               className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-              onClick={() => dispatch({ type: "HIDE RESULT MODAL" })}
+              onClick={() => dispatch({ type: ActionTypes.hideResultModal })}
             >
               Dismiss
             </button>

@@ -1,6 +1,10 @@
 import React from "react";
 
-export const WalletIcon = (props) => {
+type props = {
+  [type: string]: string;
+}
+
+export const WalletIcon = (props: props): JSX.Element => {
   return (
     <svg
       width="24"
@@ -20,7 +24,7 @@ export const WalletIcon = (props) => {
   );
 };
 
-export const RobotIcon = (props) => {
+export const RobotIcon = (props: props): JSX.Element => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +39,7 @@ export const RobotIcon = (props) => {
   );
 };
 
-export const UserIcon = (props) => {
+export const UserIcon = (props: props): JSX.Element => {
   return (
     <svg
       viewBox="0 0 24 24"
