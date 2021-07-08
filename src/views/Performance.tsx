@@ -1,11 +1,11 @@
 import React from "react";
 
 function Performance(): JSX.Element {
-	return (
-		<div>
+  return (
+    <div>
       Performances
-		</div>
-	);
+    </div>
+  );
 }
 
 export default Performance;

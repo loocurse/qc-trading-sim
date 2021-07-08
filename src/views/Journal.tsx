@@ -1,11 +1,11 @@
 import React from "react";
 
-function Journal() {
-	return (
-		<div>
+function Journal(): JSX.Element {
+  return (
+    <div>
       Journal view
-		</div>
-	);
+    </div>
+  );
 }
 
 export default Journal;
