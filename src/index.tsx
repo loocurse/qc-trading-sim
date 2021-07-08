@@ -7,8 +7,8 @@ import Navbar from "./components/Navbar";
 import { Journal, Overview, Performance } from "./views";
 import "./App.scss";
 
-const Routing = () => {
-	return(
+ReactDOM.render(
+	<React.StrictMode>
 		<Router>
 			<Navbar/>
 			<div className="w-4/5 mx-auto">
@@ -19,13 +19,6 @@ const Routing = () => {
 				</Switch>
 			</div>
 		</Router>
-	);
-};
-
-
-ReactDOM.render(
-	<React.StrictMode>
-		<Routing />
 	</React.StrictMode>,
 	document.getElementById("root")
 );

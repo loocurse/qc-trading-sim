@@ -1,20 +1,22 @@
 import React from "react";
+import { ticker } from "./Graph";
 
-const defaultList = [
-	{symbol: "BABA", market:"NYSE", name: "Alibaba Group Holding Ltd"},
-	{symbol: "LMND", market:"NYSE", name: "Lemonade Inc"},
-	{symbol: "AAPL", market:"NASDAQ", name: "Apple Inc"},
-	{symbol: "TSLA", market:"NASDAQ", name: "Tesla Inc"},
-];
+type tickerListProps = {
+	tickerList: ticker[];
+	tickerData: ticker[];
+	setTickerList: React.Dispatch<React.SetStateAction<ticker[]>>;
+}
 
-const TickerList = ({tickerList=defaultList, focus}: any): JSX.Element => {
+const TickerList = ({ tickerList, tickerData, setTickerList  }: tickerListProps): JSX.Element => {
+
 	return (
-		<div className="dropdown absolute bg-white rounded-lg">
-			{ tickerList.map((data: any) => {
+		<div className="dropdown absolute bg-white rounded-lg w-full">
+			{ tickerList.map((data) => {
 				if (data) {
 					return (
-						<div className= "p-3 w-max" key={data.name}>
-							<h1>{data.name}</h1>
+						<div className= "p-3 hover:bg-gray-100 cursor-pointer w-full" key={data.name}>
+							<h1 className="text-lg font-bold">{data.symbol}</h1>
+							<p className="text-sm">{data.name}</p>
 						</div>	
 					);	
 				}
