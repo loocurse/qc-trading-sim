@@ -4,7 +4,7 @@ function Recommendation(): JSX.Element {
   return (
     <div>
       <h2 className="text-2xl font-bold mt-10">Recommendations</h2>
-      <table className="recommendation-table table-fixed w-full">
+      <table className="table table-fixed w-full">
         <thead>
           <tr>
             <th className="w-1/6 content-center">Date</th>

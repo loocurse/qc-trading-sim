@@ -2,7 +2,7 @@
   font-family: "Lato", sans-serif;
 }
 
-.recommendation-table {
+.table {
   thead {
     border-bottom: 0.5px solid rgb(56, 56, 56);
     tr {
@@ -14,7 +14,7 @@
     tr {
       height: 50px;
       &:hover {
-        background-color: rgb(233, 233, 233);
+        background-color: #f3f9f9;
       }
 
       td {
@@ -30,7 +30,7 @@
 
 .ticker-search {
   width: 20rem;
-  background: #F2F1F9;
+  background: #f2f1f9;
   border: none;
   padding: 0.5rem;
   border-radius: 5px;
@@ -41,3 +41,38 @@
 }
 
 
+
+.performance {
+  thead {
+    border-bottom: 0.5px solid rgb(56, 56, 56);
+    tr {
+      height: 50px;
+      color: rgb(88, 88, 88);
+    }
+  }
+  tbody {
+    tr {
+      height: 50px;
+      background-color: #f3f9f9;
+
+      td {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.inner-table {
+  color: rgb(95, 95, 95);
+  background-color: white;
+  thead {
+    tr {
+      background-color: white;
+    }
+  }
+  tbody{
+    tr {
+      background-color: white;
+    }
+  }
+}

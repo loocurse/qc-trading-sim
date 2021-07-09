@@ -8,8 +8,8 @@ function Navbar(): JSX.Element {
       <Link to="/journal" className="mx-5">Journal</Link>
       <Link to="/performance" className="mx-5">Performance</Link>
       <div className="flex items-center">
-        <img src="https://image.flaticon.com/icons/png/32/1946/1946429.png" alt="" className="mx-3 ml-10"/>
-        <p className="items-baseline">Username</p>
+        <img src="https://image.flaticon.com/icons/png/32/1946/1946429.png" alt="" className="mx-3 ml-10 cursor-pointer"/>
+        <p className="items-baseline">Lucas</p>
       </div>
     </nav>
   );
