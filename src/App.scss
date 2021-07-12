@@ -26,7 +26,11 @@
 
 .dropdown {
   display: none;
+  &:hover {
+    display: block;
+  }
 }
+
 
 .ticker-search {
   width: 20rem;
