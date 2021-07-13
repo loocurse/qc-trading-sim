@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import InnerTable from "../components/InnerTable";
+import ApexChartPerformance from "../components/ApexChartPerformance";
 
 const performanceData = [
   { month: "July 2021", realized_pnl: 2.33, positions:[
@@ -20,7 +21,7 @@ function Performance(): JSX.Element {
   return (
     <div>
       <h1 className="text-2xl font-bold my-5">Performance Overview</h1>
-      <img src="https://i.ibb.co/hmk6L9n/sp500.png" alt="" />
+      <ApexChartPerformance />
 
       <table className="performance table-fixed w-full my-5">
         <thead>

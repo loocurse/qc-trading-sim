@@ -4,7 +4,7 @@ import { ticker } from "./Graph";
 type tickerListProps = {
   tickerData: ticker[];
 	tickerList: ticker[];
-  setSelectedTicker: React.Dispatch<React.SetStateAction<ticker>>;
+  setSelectedTicker: React.Dispatch<React.SetStateAction<ticker | undefined>>;
 }
 
 const TickerList = ({ tickerList, setSelectedTicker, tickerData }: tickerListProps): JSX.Element => {
