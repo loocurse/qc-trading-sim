@@ -2,15 +2,24 @@ import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import TickerList from "./TickerList";
 import ApexChart from "./ApexChart";
-import instance from "../api";
+import { instance } from "../api";
 
 
-export type ticker = {
-	symbol: string;
-	market: string;
-	name: string;
-  id: number;
+export interface ticker {
+  id:            number;
+  name:          string;
+  price:         number;
+  symbol:        string;
+  change_number: number;
+  change_per:    number;
+  market:        Market;
 }
+
+export enum Market {
+  Nasdaq = "NASDAQ",
+  Nyse = "NYSE",
+}
+
 
 function Graph(): JSX.Element {
   const [tickerData, setTickerData] = useState<ticker[]>([]);
@@ -50,15 +59,15 @@ function Graph(): JSX.Element {
         <h2 className="text-3xl font-bold">{selectedTicker.symbol} ({selectedTicker.market})</h2>
         <div className="flex justify-between mt-1">
           <div className="flex items-baseline font-bold">
-            <h2 className="mr-2 text-xl ">217.20</h2>
-            <p className="text-gray-400 ml-2">2.39   (-1.09%)</p>
+            <h2 className="mr-2 text-xl ">{selectedTicker.price}</h2>
+            <p className="text-gray-400 ml-2">{selectedTicker.change_number}    ({(selectedTicker.change_per*100).toFixed(2)}%)</p>
           </div>
           <div className="relative">
             <SearchBar filterList={filterList} />
             <TickerList tickerData={tickerData} tickerList={tickerList} setSelectedTicker={setSelectedTicker} />
           </div>
         </div>
-        <ApexChart />
+        <ApexChart ticker={selectedTicker.symbol} />
       </div>
     );
   }

@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InnerTable from "../components/InnerTable";
 import ApexChartPerformance from "../components/ApexChartPerformance";
+import { instance } from "../api";
 
-const performanceData = [
-  { month: "July 2021", realized_pnl: 2.33, positions:[
-    { ticker: "AAPL", buy: 100, sell: 150, pnl: 50, notes: "Reached target price" },
-    { ticker: "TSLA", buy: 400, sell: 390, pnl: -4.20, notes: "Reached stop loss" },
-  ] }, 
-  { month: "June 2021", realized_pnl: 2.33, positions:[
-    { ticker: "AAPL", buy: 100, sell: 150, pnl: 50, notes: "Reached target price" },
-    { ticker: "TSLA", buy: 400, sell: 390, pnl: -4.20, notes: "Reached stop loss" },
-    { ticker: "BABA", buy: 300, sell: 390, pnl: 14.20, notes: "Reached target price" },
-  ] }, 
-];
+
+interface performance {
+  month: string;
+  realized_pnl: number;
+  positions: {
+      ticker: string;
+      buy: number;
+      sell: number;
+      pnl: number;
+      notes: string;
+  }[]
+}
 
 
 function Performance(): JSX.Element {
-  const [performance, setPerformance] = useState(performanceData);
+  const [dropdown, setDropdown] = useState<string[]>([]);
+  const [performance, setPerformance] = useState<performance[]>();
   const outerTableCols = ["Month", "Positions Closed","Realised PnL (%)", "Actions"];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await instance.get("performance");
+      setPerformance(res.data);
+    };
+    fetchData();
+  },[]);
+
+  function toggleDisplay(month: string) {
+    const array = dropdown.slice();
+    const index = array.indexOf(month);
+    if (index === -1) {
+      array.push(month);
+    } else {
+      array.splice(index, 1);
+    }
+    setDropdown(array);
+  }
+
+  
   return (
     <div>
       <h1 className="text-2xl font-bold my-5">Performance Overview</h1>
@@ -32,18 +56,21 @@ function Performance(): JSX.Element {
           </tr>
         </thead>
         <tbody>
-          {performance.map(data => {
+          {performance && performance.map(data => {
             return (<><tr key={data.month}>
               <td>{data.month}</td>
               <td>{data.positions.length}</td>
               <td>{data.realized_pnl}</td>
-              <td>More Details</td>
+              <td onClick={() => toggleDisplay(data.month)} className="hover:underline cursor-pointer">More Details</td>
             </tr>
+            {dropdown.includes(data.month) &&
             <tr>
               <td colSpan={4} className="content-center bg-white">
                 <InnerTable positions={data.positions}/>
               </td>
             </tr>
+            }
+            
             </>);
           })}
         </tbody>
