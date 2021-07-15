@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import TickerList from "./TickerList";
 import ApexChart from "./ApexChart";
 import { instance } from "../api";
+import Recommendation from "./Recommendation";
 
 
 export interface ticker {
@@ -21,10 +22,12 @@ export enum Market {
 }
 
 
+
 function Graph(): JSX.Element {
-  const [tickerData, setTickerData] = useState<ticker[]>([]);
-  const [tickerList, setTickerList] = useState<ticker[]>([]);
   const [selectedTicker, setSelectedTicker] = useState<ticker>();
+  const [tickerData, setTickerData] = useState<ticker[]>([]); // tickerData is a list of all the tickers
+  const [tickerList, setTickerList] = useState<ticker[]>([]); // tickerList is a display of the tickers that pop out as users search
+  
 
   const filterList = (query: string) => {
     if (query && tickerData) {
@@ -56,6 +59,7 @@ function Graph(): JSX.Element {
   if (selectedTicker && tickerData && tickerList) {
     return (
       <div>
+        <h3 className="my-5 text-xl">Welcome, Lucas</h3>
         <h2 className="text-3xl font-bold">{selectedTicker.symbol} ({selectedTicker.market})</h2>
         <div className="flex justify-between mt-1">
           <div className="flex items-baseline font-bold">
@@ -68,6 +72,8 @@ function Graph(): JSX.Element {
           </div>
         </div>
         <ApexChart ticker={selectedTicker.symbol} />
+        <Recommendation setSelectedTicker={setSelectedTicker} tickerData={tickerData}/>
+
       </div>
     );
   }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { instance } from "../api";
+import { ticker } from "./Graph";
 
 interface recommendationType {
   "date": Date;
@@ -10,7 +11,7 @@ interface recommendationType {
   "expected_profit": number;
 }
 
-function Recommendation(): JSX.Element {
+function Recommendation({ setSelectedTicker, tickerData }:{setSelectedTicker: React.Dispatch<React.SetStateAction<ticker | undefined>>, tickerData: ticker[]}): JSX.Element {
   const [rec, setRec] = useState<recommendationType[]>([]);
 
   const fetchData = async () => {
@@ -27,6 +28,12 @@ function Recommendation(): JSX.Element {
   const formatDate = (param_date: Date) => {
     const date = new Date(param_date);
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+  };
+
+  const clickHandler = (symbol: string) => {
+    setSelectedTicker(tickerData.filter(ticker => {
+      return ticker.symbol === symbol; 
+    })[0]); 
   };
 
   
@@ -46,7 +53,7 @@ function Recommendation(): JSX.Element {
             return(
               <tr key={idx}>
                 <td className="content-center">{formatDate(rec.date)}</td>
-                <td className="font-bold">{rec.ticker}</td>
+                <td className="font-bold cursor-pointer" onClick={() => clickHandler(rec.ticker)}>{rec.ticker}</td>
                 <td>${rec.entry_price}</td>
                 <td>${rec.stop_loss}</td>
                 <td>${rec.target_price}</td>

@@ -70,10 +70,6 @@ class ApexChartPerformance extends React.Component<unknown, any> {
     });
 
     const performance = await instance.get("algoGraph");
-    console.log(performance);
-
-
-    
 
     this.setState({
       ...this.state,
