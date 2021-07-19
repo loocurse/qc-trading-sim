@@ -32,7 +32,6 @@
   z-index: 10;
 }
 
-
 .ticker-search {
   width: 20rem;
   background: #f2f1f9;
@@ -44,8 +43,6 @@
 .ticker-search:focus + .dropdown {
   display: block;
 }
-
-
 
 .performance {
   thead {
@@ -75,7 +72,7 @@
       background-color: white;
     }
   }
-  tbody{
+  tbody {
     tr {
       background-color: white;
     }

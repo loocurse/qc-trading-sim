@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { instance } from "../api";
-import { ticker } from "./Graph";
+import { ticker, Action } from "../views/Overview";
 
 interface recommendationType {
   date: Date;
@@ -11,13 +11,15 @@ interface recommendationType {
   expected_profit: number;
 }
 
-function Recommendation({
-  setSelectedTicker,
-  tickerData,
-}: {
-  setSelectedTicker: React.Dispatch<React.SetStateAction<ticker | undefined>>;
+interface RecommendationProps {
+  dispatch: React.Dispatch<Action>;
   tickerData: ticker[];
-}): JSX.Element {
+}
+
+function Recommendation({
+  dispatch,
+  tickerData,
+}: RecommendationProps): JSX.Element {
   const [rec, setRec] = useState<recommendationType[]>([]);
 
   const fetchData = async () => {
@@ -44,11 +46,12 @@ function Recommendation({
   };
 
   const clickHandler = (symbol: string) => {
-    setSelectedTicker(
-      tickerData.filter((ticker) => {
+    dispatch({
+      type: "UPDATE_SELECTED_TICKER",
+      ticker: tickerData.filter((ticker) => {
         return ticker.symbol === symbol;
-      })[0]
-    );
+      })[0],
+    });
   };
 
   return (

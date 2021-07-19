@@ -1,20 +1,21 @@
 import React from "react";
-import { ticker } from "./Graph";
+import { ticker } from "../views/Overview";
+import { Action } from "../views/Overview";
 
 type tickerListProps = {
   tickerData: ticker[];
   tickerList: ticker[];
-  setSelectedTicker: React.Dispatch<React.SetStateAction<ticker | undefined>>;
+  dispatch: React.Dispatch<Action>;
 };
 
 const TickerList = ({
   tickerList,
-  setSelectedTicker,
+  dispatch,
   tickerData,
 }: tickerListProps): JSX.Element => {
   const clickHandler = (id: number) => {
     const ticker = tickerData.filter((data) => data.id === id)[0];
-    setSelectedTicker(ticker);
+    dispatch({ type: "UPDATE_SELECTED_TICKER", ticker: ticker });
   };
 
   return (

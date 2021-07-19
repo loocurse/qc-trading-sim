@@ -1,5 +1,3 @@
-import React from "react";
-
 interface innerTableProps {
   positions: {
     ticker: string;

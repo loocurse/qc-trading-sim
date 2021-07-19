@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import InnerTable from "../components/InnerTable";
 import ApexChartPerformance from "../components/ApexChartPerformance";
 import { instance } from "../api";

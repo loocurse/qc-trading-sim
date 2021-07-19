@@ -13,8 +13,20 @@ class ApexChart extends React.Component<{ ticker: string }, any> {
           data: [],
         },
       ],
-      resolution: "5D",
+      resolution: "1D",
       options: {
+        noData: {
+          text: "No data available",
+          align: "center",
+          verticalAlign: "middle",
+          offsetX: 0,
+          offsetY: 0,
+          style: {
+            color: undefined,
+            fontSize: "28px",
+            fontFamily: "'Lato', sans-serif;",
+          },
+        },
         chart: {
           type: "candlestick",
           height: 350,
@@ -46,12 +58,15 @@ class ApexChart extends React.Component<{ ticker: string }, any> {
       this.props.ticker,
       this.state.resolution
     );
-    const newarray = res.map((result) => {
-      return {
-        x: new Date(result.t),
-        y: [result.o, result.h, result.l, result.c],
-      };
-    });
+    let newarray = [] as { x: Date; y: number[] }[];
+    if (res) {
+      newarray = res.map((result) => {
+        return {
+          x: new Date(result.t),
+          y: [result.o, result.h, result.l, result.c],
+        };
+      });
+    }
 
     this.setState({
       ...this.state,
