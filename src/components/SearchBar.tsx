@@ -1,12 +1,12 @@
 import React from "react";
 
 interface SearchBarProps {
-	filterList: (query: string) => void;
+  filterList: (query: string) => void;
 }
 
 const SearchBar = ({ filterList }: SearchBarProps): JSX.Element => {
   return (
-    <input 
+    <input
       key="random1"
       className="ticker-search"
       placeholder={"Search ticker"}

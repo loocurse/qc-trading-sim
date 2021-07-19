@@ -7,22 +7,32 @@ interface innerTableProps {
     sell: number;
     pnl: number;
     notes: string;
-  }[]
+  }[];
 }
 
 function InnerTable({ positions }: innerTableProps): JSX.Element {
-  const innerTableCols = ["Ticker","Buy Price","Sell Price", "PnL (%)", "Notes"];
+  const innerTableCols = [
+    "Ticker",
+    "Buy Price",
+    "Sell Price",
+    "PnL (%)",
+    "Notes",
+  ];
   return (
     <table className="inner-table w-5/6 m-auto content-center">
       <thead>
         <tr>
-          {innerTableCols.map(colname => {
-            return <th key={colname} className="">{colname}</th>;
+          {innerTableCols.map((colname) => {
+            return (
+              <th key={colname} className="">
+                {colname}
+              </th>
+            );
           })}
         </tr>
       </thead>
       <tbody>
-        {positions.map(data => {
+        {positions.map((data) => {
           return (
             <tr key={data.ticker}>
               <td>{data.ticker}</td>
@@ -33,7 +43,6 @@ function InnerTable({ positions }: innerTableProps): JSX.Element {
             </tr>
           );
         })}
-        
       </tbody>
     </table>
   );

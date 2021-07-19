@@ -10,7 +10,7 @@ import "./App.scss";
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <Navbar/>
+      <Navbar />
       <div className="w-4/5 mx-auto">
         <Switch>
           <Route exact path="/" component={Overview} />
