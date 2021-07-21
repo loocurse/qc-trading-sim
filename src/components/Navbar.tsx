@@ -8,24 +8,21 @@ function Navbar(): JSX.Element {
     <nav className="flex bg-primary p-3 justify-end pr-10 items-center">
       <Link
         to="/"
-        className={`mx-5 ${pathname === "/" ? "font-bold" : "text-gray-400"}`}
-      >
+        className={`mx-5 ${pathname === "/" ? "font-bold" : "text-gray-400"}`}>
         Overview
       </Link>
       <Link
         to="/journal"
         className={`mx-5 ${
           pathname === "/journal" ? "font-bold" : "text-gray-400"
-        }`}
-      >
+        }`}>
         Journal
       </Link>
       <Link
         to="/performance"
         className={`mx-5 ${
           pathname === "/performance" ? "font-bold" : "text-gray-400"
-        }`}
-      >
+        }`}>
         Performance
       </Link>
       <div className="flex items-center">

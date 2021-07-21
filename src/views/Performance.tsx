@@ -72,8 +72,7 @@ function Performance(): JSX.Element {
                     <td>{data.realized_pnl}</td>
                     <td
                       onClick={() => toggleDisplay(data.month)}
-                      className="hover:underline cursor-pointer"
-                    >
+                      className="hover:underline cursor-pointer">
                       More Details
                     </td>
                   </tr>

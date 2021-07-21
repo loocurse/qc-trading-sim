@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { instance } from "../api";
-import { ticker, Action } from "../views/Overview";
+import { ticker } from "../utils/ticker.interface";
+import { Action } from "../utils/tickerReducer";
 
 interface recommendationType {
   date: Date;
@@ -76,8 +77,7 @@ function Recommendation({
                 <td className="content-center">{formatDate(rec.date)}</td>
                 <td
                   className="font-bold cursor-pointer"
-                  onClick={() => clickHandler(rec.ticker)}
-                >
+                  onClick={() => clickHandler(rec.ticker)}>
                   {rec.ticker}
                 </td>
                 <td>${rec.entry_price}</td>

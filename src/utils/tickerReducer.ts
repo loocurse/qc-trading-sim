@@ -1,4 +1,4 @@
-import { ticker } from "../ticker.interface";
+import { ticker } from "./ticker.interface";
 
 export type Action =
   | { type: "GET_DATA"; data: ticker[] }
@@ -17,7 +17,7 @@ export const initialState = {
   tickerList: [] as ticker[],
 };
 
-export const reducer = function (
+export const tickerReducer = function (
   state: reducerState,
   action: Action
 ): reducerState {

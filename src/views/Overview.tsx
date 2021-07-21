@@ -1,16 +1,17 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TickerList from "../components/TickerList";
 import ApexChart from "../components/ApexChart";
-import { instance } from "../api";
+import { instance, getStatus } from "../api";
 import Recommendation from "../components/Recommendation";
-import { reducer, initialState } from "../utils/reducer";
+import { tickerReducer as reducer, initialState } from "../utils/tickerReducer";
 
 function Overview(): JSX.Element {
   const [{ tickerData, selectedTicker, tickerList }, dispatch] = useReducer(
     reducer,
     initialState
   );
+  const [status, setStatus] = useState<boolean>();
 
   const filterList = (query: string) => {
     if (query && tickerData) {
@@ -34,13 +35,24 @@ function Overview(): JSX.Element {
       const result = await instance.get("ticker");
       dispatch({ type: "GET_DATA", data: result.data });
     };
+
+    const getMarketStatus = async () => {
+      const result = await getStatus();
+      setStatus(result);
+    };
     fetchData();
+    getMarketStatus();
   }, []);
 
   if (selectedTicker && tickerData && tickerList) {
     return (
       <div>
-        <h3 className="my-5 text-xl">Welcome, Lucas</h3>
+        <div className="flex items-center mt-5 mb-2">
+          <svg height="10" width="10" className="mr-2 my-2">
+            <circle cx="5" cy="5" r="5" fill={status ? "green" : "red"} />
+          </svg>
+          <p>Market {status ? "Open" : "Closed"}</p>
+        </div>
         <h2 className="text-3xl font-bold">
           {selectedTicker.symbol} ({selectedTicker.market})
         </h2>

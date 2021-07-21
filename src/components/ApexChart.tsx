@@ -140,8 +140,7 @@ const ResolutionButton = ({
   return (
     <button
       className={`mx-2 ${active ? "font-bold" : "text-gray-500"}`}
-      onClick={() => clickHandler(title)}
-    >
+      onClick={() => clickHandler(title)}>
       {title}
     </button>
   );

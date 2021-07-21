@@ -93,3 +93,38 @@ export const getIndex = async (): Promise<Result[]> => {
   );
   return res.data.results;
 };
+
+export interface MarketStatus {
+  market: string;
+  earlyHours: boolean;
+  afterHours: boolean;
+  serverTime: string;
+  exchanges: Exchanges;
+  currencies: Currencies;
+}
+
+export interface Currencies {
+  fx: string;
+  crypto: string;
+}
+
+export interface Exchanges {
+  nyse: string;
+  nasdaq: string;
+  otc: string;
+}
+
+export const getStatus = async (): Promise<boolean> => {
+  const res = await axios.get<MarketStatus>(
+    `https://api.polygon.io/v1/marketstatus/now?&apiKey=${credentials.API_KEY}`
+  );
+  console.log(res.data.market)
+  return res.data.market === "open";
+};
+
+export const getTickerLatestPrice = async (ticker: string): Promise<number> => {
+  const res = await axios.get(
+    `https://api.polygon.io/v2/last/trade/${ticker}?&apiKey=${credentials.API_KEY}`
+  );
+  return res.data.results.p;
+};
