@@ -1,7 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { getTickerPriceData } from "../api";
-
+import { getTickerPriceData } from "../../api";
 
 class ApexChart extends React.Component<{ ticker: string }, any> {
   constructor(props: { ticker: string }) {

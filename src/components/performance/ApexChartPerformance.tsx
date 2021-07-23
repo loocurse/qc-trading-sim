@@ -1,6 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { getIndex, heroku } from "../api";
+import { getIndex } from "../../api";
+import { algoGraph } from "../../utils/data.json";
 
 class ApexChartPerformance extends React.Component<unknown, any> {
   constructor(props: unknown) {
@@ -66,13 +67,13 @@ class ApexChartPerformance extends React.Component<unknown, any> {
       return { x: new Date(result.t), y: value - 1 };
     });
 
-    const performance = await heroku.get("algoGraph");
+    const performance = algoGraph;
 
     this.setState({
       ...this.state,
       series: [
         { name: "S&P 500", data: newarray },
-        { name: "Quant Crunch Algorithm", data: performance.data },
+        { name: "Quant Crunch Algorithm", data: performance },
       ],
     });
   }

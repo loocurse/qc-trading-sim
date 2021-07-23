@@ -1,4 +1,4 @@
-import { Position } from "../utils/api.interface";
+import { Position } from "../../utils/api.interface";
 
 function InnerTable({ positions }: { positions: Position[] }): JSX.Element {
   const innerTableCols = [
@@ -22,13 +22,13 @@ function InnerTable({ positions }: { positions: Position[] }): JSX.Element {
         </tr>
       </thead>
       <tbody>
-        {positions.map((data) => {
+        {positions.map((data, index) => {
           return (
-            <tr key={data.symbol}>
+            <tr key={index}>
               <td>{data.symbol}</td>
-              <td>{data.entry_price}</td>
-              <td>{data.target_price}</td>
-              <td>{data.pnl}</td>
+              <td>${data.entry_price.toFixed(2)}</td>
+              <td>${data.target_price.toFixed(2)}</td>
+              <td>{data.pnl.toFixed(2)}%</td>
               <td>{data.notes}</td>
             </tr>
           );

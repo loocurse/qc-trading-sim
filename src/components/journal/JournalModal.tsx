@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { getTickerLatestPrice } from "../api";
-import { Action } from "../utils/journalReducer";
+import { getTickerLatestPrice } from "../../api";
+import { Action } from "../../utils/journalReducer";
 
 interface JournalModalProps {
   tickerValue?: number;

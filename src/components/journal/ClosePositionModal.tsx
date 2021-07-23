@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { payload } from "../utils/journal.interface";
-import { Action } from "../utils/journalReducer";
+import { payload } from "../../utils/journal.interface";
+import { Action } from "../../utils/journalReducer";
 
 interface ClosePositionModalProps {
   currentTicker: payload;

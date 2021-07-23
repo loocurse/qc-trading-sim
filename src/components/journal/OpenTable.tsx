@@ -1,5 +1,5 @@
-import { OpenPosition } from "../utils/journal.interface";
-import { Action } from "../utils/journalReducer";
+import { OpenPosition } from "../../utils/journal.interface";
+import { Action } from "../../utils/journalReducer";
 
 export const dateFormatter = (date_string: string): string => {
   const date = new Date(date_string);

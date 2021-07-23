@@ -293,7 +293,7 @@
     {
       "datetime": "2021-05-04T04:00:00.000Z",
       "ticker": "AAPL",
-      "entry_price": 120.12
+      "entry_price": 120.11
     },
     {
       "datetime": "2021-05-03T04:00:00.000Z",
@@ -313,7 +313,7 @@
     {
       "datetime": "2021-04-01T04:00:00.000Z",
       "ticker": "FVRR",
-      "entry_price": 180.78
+      "entry_price": 182.78
     }
   ],
   "closedPositions": [
@@ -328,7 +328,7 @@
       "open_date": "2021-05-02T04:00:00.000Z",
       "close_date": "2021-05-09T04:00:00.000Z",
       "ticker": "MSFT",
-      "entry_price": 120.12,
+      "entry_price": 200.56,
       "close_price": 111.12
     },
     {

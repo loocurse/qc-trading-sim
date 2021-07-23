@@ -1,6 +1,6 @@
 import { dateFormatter } from "./OpenTable";
-import { Action } from "../utils/journalReducer";
-import { ClosedPosition } from "../utils/journal.interface";
+import { Action } from "../../utils/journalReducer";
+import { ClosedPosition } from "../../utils/journal.interface";
 
 interface CloseTableProps {
   closedPosition: ClosedPosition[] | undefined;

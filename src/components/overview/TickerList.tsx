@@ -1,5 +1,5 @@
-import { ticker } from "../utils/ticker.interface";
-import { Action } from "../utils/tickerReducer";
+import { ticker } from "../../utils/ticker.interface";
+import { Action } from "../../utils/tickerReducer";
 
 type tickerListProps = {
   tickerData: ticker[];
@@ -26,7 +26,7 @@ const TickerList = ({
               onClick={() => clickHandler(data.id)}
               className="p-3 hover:bg-gray-100 cursor-pointer w-full"
               key={data.name}>
-              <h1 className="text-lg font-bold">{data.exchange}</h1>
+              <h1 className="text-lg font-bold">{data.symbol}</h1>
               <p className="text-sm">{data.name}</p>
             </div>
           );

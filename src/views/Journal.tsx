@@ -1,8 +1,8 @@
-import OpenTable from "../components/OpenTable";
-import CloseTable from "../components/CloseTable";
+import OpenTable from "../components/journal/OpenTable";
+import CloseTable from "../components/journal/CloseTable";
 import { useReducer, useEffect } from "react";
-import JournalModal from "../components/JournalModal";
-import ClosePositionModal from "../components/ClosePositionModal";
+import JournalModal from "../components/journal/JournalModal";
+import ClosePositionModal from "../components/journal/ClosePositionModal";
 import {
   journalReducer as reducer,
   initialState,

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { heroku } from "../api";
-import { RecommendationsGet } from "../utils/api.interface";
-import { ticker } from "../utils/ticker.interface";
-import { Action } from "../utils/tickerReducer";
+import { heroku } from "../../api";
+import { RecommendationsGet } from "../../utils/api.interface";
+import { ticker } from "../../utils/ticker.interface";
+import { Action } from "../../utils/tickerReducer";
 
 interface recommendationType {
   symbol: string;

@@ -1,9 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
-import SearchBar from "../components/SearchBar";
-import TickerList from "../components/TickerList";
-import ApexChart from "../components/ApexChart";
+import SearchBar from "../components/overview/SearchBar";
+import TickerList from "../components/overview/TickerList";
+import ApexChart from "../components/overview/ApexChart";
 import { heroku, getStatus, getTickerLatestPrice } from "../api";
-import Recommendation from "../components/Recommendation";
+import Recommendation from "../components/overview/Recommendation";
 import { tickerReducer as reducer, initialState } from "../utils/tickerReducer";
 import { Tickerlist } from "../utils/api.interface";
 

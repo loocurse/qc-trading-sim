@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import InnerTable from "../components/InnerTable";
-import ApexChartPerformance from "../components/ApexChartPerformance";
+import InnerTable from "../components/performance/InnerTable";
+import ApexChartPerformance from "../components/performance/ApexChartPerformance";
 import { heroku } from "../api";
-import { PerformanceElement } from "../utils/api.interface";
+import {
+  PerformanceElement,
+  Performance as PerformanceGet,
+} from "../utils/api.interface";
 
 function Performance(): JSX.Element {
   const [dropdown, setDropdown] = useState<number[]>([]);
@@ -16,8 +19,8 @@ function Performance(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await heroku.get<PerformanceElement[]>("performance");
-      setPerformance(res.data);
+      const res = await heroku.get<PerformanceGet>("performance");
+      setPerformance(res.data.performance);
     };
     fetchData();
   }, []);
@@ -26,9 +29,11 @@ function Performance(): JSX.Element {
     setDropdown((prev) => {
       const index = prev.indexOf(month);
       if (index === -1) {
-        return [...prev, index];
+        return [...prev, month];
       } else {
-        return prev.splice(index, 1);
+        return prev.filter((item) => {
+          return item !== month;
+        });
       }
     });
   }
@@ -51,17 +56,24 @@ function Performance(): JSX.Element {
         </thead>
         <tbody>
           {performance &&
-            performance.map((data) => {
+            performance.map((data, index) => {
               return (
                 <>
-                  <tr key={data.month}>
-                    <td>{data.month}</td>
+                  <tr key={index}>
+                    <td>
+                      {new Date(data.month * 1000).toLocaleString("default", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </td>
                     <td>{data.positions.length}</td>
-                    <td>{data.realized_pnl}</td>
+                    <td>{data.realized_pnl.toFixed(2)}</td>
                     <td
                       onClick={() => toggleDisplay(data.month)}
                       className="hover:underline cursor-pointer">
-                      More Details
+                      {dropdown.includes(data.month)
+                        ? "Less Details"
+                        : "More Details"}
                     </td>
                   </tr>
                   {dropdown.includes(data.month) && (
