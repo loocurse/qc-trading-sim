@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { heroku, getTickerLatestPrice } from "../api";
 import { OpenPosition } from "../utils/journal.interface";
 import { Action } from "../utils/journalReducer";
 
@@ -14,27 +12,6 @@ interface OpenTableProps {
 }
 
 function OpenTable({ openPosition, dispatch }: OpenTableProps): JSX.Element {
-  // Hook to get data from database, and map each ticker to current market price (through polygon)
-  useEffect(() => {
-    const getPositions = async () => {
-      const res = await heroku.get<OpenPosition[]>("openPositions");
-      const promises = res.data.map((item) => {
-        return getTickerLatestPrice(item.ticker).then((price) => {
-          const current_price = +price.toFixed(2);
-          const profit = +(
-            (current_price / item.entry_price - 1) *
-            100
-          ).toFixed(1);
-          return { ...item, current_price, profit };
-        });
-      });
-      Promise.all(promises).then((results) => {
-        dispatch({ type: "SET_OPEN_POSITIONS", data: results });
-      });
-    };
-    getPositions();
-  }, []);
-
   // When close button is clicked, this handler handles bringing up the modal and passing corresponding information
   const closePositionHandler = (position: OpenPosition) => {
     dispatch({ type: "TOGGLE_CLOSE_POSITION_MODAL" });

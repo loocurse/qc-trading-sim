@@ -2,6 +2,7 @@ import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { getTickerPriceData } from "../api";
 
+
 class ApexChart extends React.Component<{ ticker: string }, any> {
   constructor(props: { ticker: string }) {
     super(props);
@@ -22,7 +23,6 @@ class ApexChart extends React.Component<{ ticker: string }, any> {
           offsetX: 0,
           offsetY: 0,
           style: {
-            color: undefined,
             fontSize: "28px",
             fontFamily: "'Lato', sans-serif;",
           },

@@ -1,5 +1,3 @@
-import { heroku } from "../api";
-import { useEffect } from "react";
 import { dateFormatter } from "./OpenTable";
 import { Action } from "../utils/journalReducer";
 import { ClosedPosition } from "../utils/journal.interface";
@@ -13,20 +11,6 @@ function CloseTable({
   closedPosition,
   dispatch,
 }: CloseTableProps): JSX.Element {
-  useEffect(() => {
-    const getPositions = async () => {
-      const res = await heroku.get<ClosedPosition[]>("closedPositions");
-      const newArray = res.data.map((item) => {
-        return {
-          ...item,
-          profit: +((item.close_price / item.entry_price - 1) * 100).toFixed(2),
-        };
-      });
-      dispatch({ type: "SET_CLOSED_POSITIONS", data: newArray });
-    };
-    getPositions();
-  }, []);
-
   const deleteHandler = (entry_price: number) => {
     if (closedPosition) {
       const newClosePos = closedPosition.filter((item) => {

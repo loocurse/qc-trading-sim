@@ -1,12 +1,15 @@
 import OpenTable from "../components/OpenTable";
 import CloseTable from "../components/CloseTable";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import JournalModal from "../components/JournalModal";
 import ClosePositionModal from "../components/ClosePositionModal";
 import {
   journalReducer as reducer,
   initialState,
+  calculateProfit,
 } from "../utils/journalReducer";
+import { openPositions, closedPositions } from "../utils/data.json";
+import { getTickerLatestPrice } from "../api";
 
 function Journal(): JSX.Element {
   const [
@@ -19,6 +22,31 @@ function Journal(): JSX.Element {
     },
     dispatch,
   ] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    const promises = openPositions.map((item) => {
+      return getTickerLatestPrice(item.ticker).then((price) => {
+        const current_price = +price.toFixed(2);
+        const profit = +((current_price / item.entry_price - 1) * 100).toFixed(
+          1
+        );
+        return { ...item, current_price, profit };
+      });
+    });
+    Promise.all(promises).then((results) => {
+      dispatch({ type: "SET_OPEN_POSITIONS", data: results });
+    });
+
+    dispatch({
+      type: "SET_CLOSED_POSITIONS",
+      data: closedPositions.map((item) => {
+        return {
+          ...item,
+          profit: calculateProfit(item.entry_price, item.close_price),
+        };
+      }),
+    });
+  }, []);
 
   return (
     <div>

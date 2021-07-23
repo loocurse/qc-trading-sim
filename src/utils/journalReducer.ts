@@ -1,4 +1,3 @@
-import ClosePositionModal from "../components/ClosePositionModal";
 import { ClosedPosition, OpenPosition, payload } from "./journal.interface";
 
 interface State {
@@ -18,7 +17,7 @@ export type Action =
   | { type: "CLOSE_POSITION"; data: payload }
   | { type: "SET_CURRENT_TICKER"; data: payload };
 
-const calculateProfit = (buy: number, sell: number) => {
+export const calculateProfit = (buy: number, sell: number): number => {
   return +((sell / buy - 1) * 100).toFixed(2);
 };
 

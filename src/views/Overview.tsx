@@ -5,7 +5,7 @@ import ApexChart from "../components/ApexChart";
 import { heroku, getStatus, getTickerLatestPrice } from "../api";
 import Recommendation from "../components/Recommendation";
 import { tickerReducer as reducer, initialState } from "../utils/tickerReducer";
-import { TickerlistElement } from "../utils/api.interface";
+import { Tickerlist } from "../utils/api.interface";
 
 function Overview(): JSX.Element {
   const [{ tickerData, selectedTicker, tickerList }, dispatch] = useReducer(
@@ -33,8 +33,8 @@ function Overview(): JSX.Element {
   // Fetch ticker data from API. Using anonymous function because there's some typescript error with useEffect async
   useEffect(() => {
     const fetchData = async () => {
-      const result = await heroku.get<TickerlistElement[]>("tickerlist");
-      const promises = result.data.map((item, id) => {
+      const result = await heroku.get<Tickerlist>("tickerlist");
+      const promises = result.data.tickerlist.map((item, id) => {
         return getTickerLatestPrice(item.symbol).then((price) => {
           return { ...item, price, id };
         });

@@ -12,6 +12,10 @@ export interface TickerlistElement {
   change_perc: number;
 }
 
+export interface RecommendationsGet {
+  results: Recommendations[];
+}
+
 export interface Recommendations {
   symbol: string;
   target_price: number;
