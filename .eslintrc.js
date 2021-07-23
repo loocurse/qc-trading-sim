@@ -5,9 +5,10 @@ module.exports = {
     node: true,
   },
   extends: [
-    "eslint:recommended",
+    //"eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
+    "prettier",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -17,12 +18,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint/eslint-plugin"],
+  plugins: ["react", "@typescript-eslint/eslint-plugin", "prettier"],
   rules: {
-    indent: ["warn", 2],
     "linebreak-style": ["error", "unix"],
     quotes: ["error", "double"],
     semi: ["warn", "always"],
-    "object-curly-spacing":["warn","always"],
+    "object-curly-spacing": ["warn", "always"],
+    "react/react-in-jsx-scope": "off",
+    "no-case-declarations": "off",
   },
 };

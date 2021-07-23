@@ -1,10 +1,12 @@
 import axios from "axios";
-import credentials from "./credentials.json";
+//import credentials from "./credentials.json";
 import {
   TickerResponse,
   TickerResponseResult,
   MarketStatus,
 } from "./utils/api.interface";
+
+const API_KEY = process.env.API_KEY;
 
 export const heroku = axios.create({
   baseURL: "https://quantcrunch-api.herokuapp.com/api/",
@@ -63,7 +65,7 @@ export const getTickerPriceData = async (
   }
 
   const res = await axios.get<TickerResponse>(
-    `https://api.polygon.io/v2/aggs/ticker/${ticker}/range/${range}/${startDate}/${today}?adjusted=true&sort=desc&limit=50000&apiKey=${credentials.API_KEY}`
+    `https://api.polygon.io/v2/aggs/ticker/${ticker}/range/${range}/${startDate}/${today}?adjusted=true&sort=desc&limit=50000&apiKey=${API_KEY}`
   );
   return res.data.results;
 };
@@ -73,21 +75,21 @@ export const getIndex = async (): Promise<TickerResponseResult[]> => {
   const res = await axios.get<TickerResponse>(
     `https://api.polygon.io/v2/aggs/ticker/SPY/range/1/day/${
       date.getTime() - 9777600000
-    }/${date.getTime()}?adjusted=true&sort=asc&apiKey=${credentials.API_KEY}`
+    }/${date.getTime()}?adjusted=true&sort=asc&apiKey=${API_KEY}`
   );
   return res.data.results;
 };
 
 export const getStatus = async (): Promise<boolean> => {
   const res = await axios.get<MarketStatus>(
-    `https://api.polygon.io/v1/marketstatus/now?&apiKey=${credentials.API_KEY}`
+    `https://api.polygon.io/v1/marketstatus/now?&apiKey=${API_KEY}`
   );
   return res.data.market === "open";
 };
 
 export const getTickerLatestPrice = async (ticker: string): Promise<number> => {
   const res = await axios.get(
-    `https://api.polygon.io/v2/last/trade/${ticker}?&apiKey=${credentials.API_KEY}`
+    `https://api.polygon.io/v2/last/trade/${ticker}?&apiKey=${API_KEY}`
   );
   return res.data.results.p;
 };
