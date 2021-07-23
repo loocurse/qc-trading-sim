@@ -30,7 +30,11 @@
     "shortid": "^2.2.8",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4",
     "typescript": "^4.3.5",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "@types/react-router-dom": "^5.1.8",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "postcss": "^7.0.36"
   },
   "scripts": {
     "start": "craco start",
@@ -57,15 +61,12 @@
     ]
   },
   "devDependencies": {
-    "@types/react-router-dom": "^5.1.8",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
     "autoprefixer": "^9.8.6",
     "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
-    "postcss": "^7.0.36",
+
     "prettier": "^2.3.2"
   }
 }
