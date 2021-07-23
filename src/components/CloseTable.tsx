@@ -27,6 +27,15 @@ function CloseTable({
     getPositions();
   }, []);
 
+  const deleteHandler = (entry_price: number) => {
+    if (closedPosition) {
+      const newClosePos = closedPosition.filter((item) => {
+        return item.entry_price !== entry_price;
+      });
+      dispatch({ type: "SET_CLOSED_POSITIONS", data: newClosePos });
+    }
+  };
+
   const tableColumns = [
     "Ticker",
     "Open Date",
@@ -65,7 +74,7 @@ function CloseTable({
                     {item.profit}%
                   </td>
                   <td>
-                    <button className="bg-red-500 p-1 px-3 rounded-lg text-white">
+                    <button onClick={() => deleteHandler(item.entry_price)} className="bg-red-500 p-1 px-3 rounded-lg text-white">
                       Delete
                     </button>
                   </td>

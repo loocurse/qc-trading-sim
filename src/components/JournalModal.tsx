@@ -48,61 +48,63 @@ function JournalModal({
 
   return (
     <div className="modal">
-      <h2 className="text-2xl font-bold mb-10">Add Position</h2>
-      <form onSubmit={saveHandler} className="w-2/3">
-        <div className="item mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Entry Price
-          </label>
-          <div className="">
-            $
+      <div className="w-4/5 ml-auto mr-auto">
+        <h2 className="text-2xl font-bold mb-10 text-center">Add Position</h2>
+        <form onSubmit={saveHandler} className="w-2/3 ml-auto mr-auto">
+          <div className="item mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Entry Price
+            </label>
+            <div className="">
+              $
+              <input
+                type="number"
+                id="entry_price"
+                step="0.01"
+                className="bg-gray-100 rounded p-3"
+                value={newPos.entry_price}
+                onChange={handleFormChange}
+              />
+            </div>
+          </div>
+          <div className="mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Ticker
+            </label>
             <input
-              type="number"
-              id="entry_price"
-              step="0.01"
+              type="text"
               className="bg-gray-100 rounded p-3"
-              value={newPos.entry_price}
+              value={newPos.ticker}
+              name=""
+              id="ticker"
               onChange={handleFormChange}
             />
           </div>
-        </div>
-        <div className="mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Ticker
-          </label>
-          <input
-            type="text"
-            className="bg-gray-100 rounded p-3"
-            value={newPos.ticker}
-            name=""
-            id="ticker"
-            onChange={handleFormChange}
-          />
-        </div>
-        <div className="mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Entry Date
-          </label>
-          <input
-            type="date"
-            className="bg-gray-100 rounded p-3"
-            name=""
-            id="date"
-            defaultValue={"01-01-2020"}
-            onChange={handleFormChange}
-          />
-        </div>
-        <div className="flex justify-center mt-10">
-          <button
-            onClick={() => dispatch({ type: "TOGGLE_ADD_POSITION_MODAL" })}
-            className="bg-gray-100 px-3 py-2 rounded-xl uppercase font-bold">
-            Cancel
-          </button>
-          <button className="bg-primary px-3 py-2 rounded-xl ml-4 uppercase font-bold">
-            Save
-          </button>
-        </div>
-      </form>
+          <div className="mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Entry Date
+            </label>
+            <input
+              type="date"
+              className="bg-gray-100 rounded p-3"
+              name=""
+              id="date"
+              defaultValue={"01-01-2020"}
+              onChange={handleFormChange}
+            />
+          </div>
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => dispatch({ type: "TOGGLE_ADD_POSITION_MODAL" })}
+              className="bg-gray-100 px-3 py-2 rounded-xl uppercase font-bold">
+              Cancel
+            </button>
+            <button className="bg-primary px-3 py-2 rounded-xl ml-4 uppercase font-bold">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

@@ -118,7 +118,7 @@ export const getStatus = async (): Promise<boolean> => {
   const res = await axios.get<MarketStatus>(
     `https://api.polygon.io/v1/marketstatus/now?&apiKey=${credentials.API_KEY}`
   );
-  console.log(res.data.market)
+  console.log(res.data.market);
   return res.data.market === "open";
 };
 

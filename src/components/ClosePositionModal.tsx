@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-  payload,
-  OpenPosition,
-  ClosedPosition,
-} from "../utils/journal.interface";
+import { payload } from "../utils/journal.interface";
 import { Action } from "../utils/journalReducer";
 
 interface ClosePositionModalProps {
@@ -41,66 +37,74 @@ function ClosePositionModal({
 
   return (
     <div className="modal p-10">
-      <h2 className="text-2xl font-bold mb-10">Close Position</h2>
-      <form onSubmit={saveHandler} className="w-2/3">
-        <div className="item mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Entry Price
-          </label>
-          <div className="">
-            <p className="font-bold">${currentTicker.buy_price}</p>
+      <div className="w-4/5 mx-auto">
+        <h2 className="text-2xl font-bold mb-10 text-center">Close Position</h2>
+        <form onSubmit={saveHandler} className="w-2/3 mx-auto">
+          <div className="item mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Entry Price
+            </label>
+            <div className="">
+              <p className="font-bold">${currentTicker.buy_price}</p>
+            </div>
           </div>
-        </div>
-        <div className="item mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Sell Price
-          </label>
-          <div className="">
-            $
+          <div className="item mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Sell Price
+            </label>
+            <div className="">
+              $
+              <input
+                type="number"
+                id="sell_price"
+                step="0.01"
+                className="bg-gray-100 rounded p-3"
+                value={formInputs.sell_price}
+                onChange={(e) => {
+                  setFormInputs({ ...formInputs, sell_price: +e.target.value });
+                }}
+              />
+            </div>
+          </div>
+          <div className="mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Ticker
+            </label>
+            <p className="font-bold">{formInputs.ticker}</p>
+          </div>
+          <div className="mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Position Open Date
+            </label>
+            <p className="font-bold">27 June 2021</p>
+          </div>
+          <div className="mb-3 flex justify-between items-center">
+            <label htmlFor="" className="mr-3">
+              Close Date
+            </label>
             <input
-              type="number"
-              id="sell_price"
-              step="0.01"
+              type="date"
               className="bg-gray-100 rounded p-3"
-              value={formInputs.sell_price}
+              name=""
+              id="date"
+              value={"01-01-2020"}
+              onChange={(e) =>
+                setFormInputs({ ...formInputs, close_date: e.target.value })
+              }
             />
           </div>
-        </div>
-        <div className="mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Ticker
-          </label>
-          <p className="font-bold">{formInputs.ticker}</p>
-        </div>
-        <div className="mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Position Open Date
-          </label>
-          <p className="font-bold">27 June 2021</p>
-        </div>
-        <div className="mb-3 flex justify-between items-center">
-          <label htmlFor="" className="mr-3">
-            Close Date
-          </label>
-          <input
-            type="date"
-            className="bg-gray-100 rounded p-3"
-            name=""
-            id="date"
-            value={"01-01-2020"}
-          />
-        </div>
-        <div className="flex justify-center mt-10">
-          <button
-            onClick={() => dispatch({ type: "TOGGLE_CLOSE_POSITION_MODAL" })}
-            className="bg-gray-100 px-3 py-2 rounded-xl uppercase font-bold">
-            Cancel
-          </button>
-          <button className="bg-primary px-3 py-2 rounded-xl ml-4 uppercase font-bold">
-            Save
-          </button>
-        </div>
-      </form>
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => dispatch({ type: "TOGGLE_CLOSE_POSITION_MODAL" })}
+              className="bg-gray-100 px-3 py-2 rounded-xl uppercase font-bold">
+              Cancel
+            </button>
+            <button className="bg-primary px-3 py-2 rounded-xl ml-4 uppercase font-bold">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
