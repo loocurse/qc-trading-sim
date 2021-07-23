@@ -1,4 +1,4 @@
-import { instance } from "../api";
+import { heroku } from "../api";
 import { useEffect } from "react";
 import { dateFormatter } from "./OpenTable";
 import { Action } from "../utils/journalReducer";
@@ -15,7 +15,7 @@ function CloseTable({
 }: CloseTableProps): JSX.Element {
   useEffect(() => {
     const getPositions = async () => {
-      const res = await instance.get<ClosedPosition[]>("closedPositions");
+      const res = await heroku.get<ClosedPosition[]>("closedPositions");
       const newArray = res.data.map((item) => {
         return {
           ...item,
@@ -74,7 +74,9 @@ function CloseTable({
                     {item.profit}%
                   </td>
                   <td>
-                    <button onClick={() => deleteHandler(item.entry_price)} className="bg-red-500 p-1 px-3 rounded-lg text-white">
+                    <button
+                      onClick={() => deleteHandler(item.entry_price)}
+                      className="bg-red-500 p-1 px-3 rounded-lg text-white">
                       Delete
                     </button>
                   </td>

@@ -2,9 +2,10 @@ import { useEffect, useReducer, useState } from "react";
 import SearchBar from "../components/SearchBar";
 import TickerList from "../components/TickerList";
 import ApexChart from "../components/ApexChart";
-import { instance, getStatus } from "../api";
+import { heroku, getStatus, getTickerLatestPrice } from "../api";
 import Recommendation from "../components/Recommendation";
 import { tickerReducer as reducer, initialState } from "../utils/tickerReducer";
+import { TickerlistElement } from "../utils/api.interface";
 
 function Overview(): JSX.Element {
   const [{ tickerData, selectedTicker, tickerList }, dispatch] = useReducer(
@@ -32,8 +33,15 @@ function Overview(): JSX.Element {
   // Fetch ticker data from API. Using anonymous function because there's some typescript error with useEffect async
   useEffect(() => {
     const fetchData = async () => {
-      const result = await instance.get("ticker");
-      dispatch({ type: "GET_DATA", data: result.data });
+      const result = await heroku.get<TickerlistElement[]>("tickerlist");
+      const promises = result.data.map((item, id) => {
+        return getTickerLatestPrice(item.symbol).then((price) => {
+          return { ...item, price, id };
+        });
+      });
+      Promise.all(promises).then((results) => {
+        dispatch({ type: "GET_DATA", data: results });
+      });
     };
 
     const getMarketStatus = async () => {
@@ -54,14 +62,14 @@ function Overview(): JSX.Element {
           <p>Market {status ? "Open" : "Closed"}</p>
         </div>
         <h2 className="text-3xl font-bold">
-          {selectedTicker.symbol} ({selectedTicker.market})
+          {selectedTicker.symbol} ({selectedTicker.exchange})
         </h2>
         <div className="flex justify-between mt-1">
           <div className="flex items-baseline font-bold">
             <h2 className="mr-2 text-xl ">{selectedTicker.price}</h2>
             <p className="text-gray-400 ml-2">
-              {selectedTicker.change_number} (
-              {(selectedTicker.change_per * 100).toFixed(2)}%)
+              {selectedTicker.change} (
+              {(selectedTicker.change_perc * 100).toFixed(2)}%)
             </p>
           </div>
           <div className="relative">

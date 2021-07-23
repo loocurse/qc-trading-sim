@@ -3,9 +3,9 @@ export interface ticker {
   name: string;
   price: number;
   symbol: string;
-  change_number: number;
-  change_per: number;
-  market: Market;
+  change: number;
+  change_perc: number;
+  exchange: Market;
 }
 
 export enum Market {

@@ -1,23 +1,12 @@
 import { useEffect, useState } from "react";
 import InnerTable from "../components/InnerTable";
 import ApexChartPerformance from "../components/ApexChartPerformance";
-import { instance } from "../api";
-
-interface performance {
-  month: string;
-  realized_pnl: number;
-  positions: {
-    ticker: string;
-    buy: number;
-    sell: number;
-    pnl: number;
-    notes: string;
-  }[];
-}
+import { heroku } from "../api";
+import { PerformanceElement } from "../utils/api.interface";
 
 function Performance(): JSX.Element {
-  const [dropdown, setDropdown] = useState<string[]>([]);
-  const [performance, setPerformance] = useState<performance[]>();
+  const [dropdown, setDropdown] = useState<number[]>([]);
+  const [performance, setPerformance] = useState<PerformanceElement[]>();
   const outerTableCols = [
     "Month",
     "Positions Closed",
@@ -27,28 +16,27 @@ function Performance(): JSX.Element {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await instance.get("performance");
+      const res = await heroku.get<PerformanceElement[]>("performance");
       setPerformance(res.data);
     };
     fetchData();
   }, []);
 
-  function toggleDisplay(month: string) {
-    const array = dropdown.slice();
-    const index = array.indexOf(month);
-    if (index === -1) {
-      array.push(month);
-    } else {
-      array.splice(index, 1);
-    }
-    setDropdown(array);
+  function toggleDisplay(month: number) {
+    setDropdown((prev) => {
+      const index = prev.indexOf(month);
+      if (index === -1) {
+        return [...prev, index];
+      } else {
+        return prev.splice(index, 1);
+      }
+    });
   }
 
   return (
     <div>
       <h1 className="text-2xl font-bold my-5">Performance Overview</h1>
       <ApexChartPerformance />
-
       <table className="performance table-fixed w-full my-5">
         <thead>
           <tr>

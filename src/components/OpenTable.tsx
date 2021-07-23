@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { instance, getTickerLatestPrice } from "../api";
+import { heroku, getTickerLatestPrice } from "../api";
 import { OpenPosition } from "../utils/journal.interface";
 import { Action } from "../utils/journalReducer";
 
@@ -17,7 +17,7 @@ function OpenTable({ openPosition, dispatch }: OpenTableProps): JSX.Element {
   // Hook to get data from database, and map each ticker to current market price (through polygon)
   useEffect(() => {
     const getPositions = async () => {
-      const res = await instance.get<OpenPosition[]>("openPositions");
+      const res = await heroku.get<OpenPosition[]>("openPositions");
       const promises = res.data.map((item) => {
         return getTickerLatestPrice(item.ticker).then((price) => {
           const current_price = +price.toFixed(2);

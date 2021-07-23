@@ -1,37 +1,21 @@
 import axios from "axios";
 import credentials from "./credentials.json";
+import {
+  TickerResponse,
+  TickerResponseResult,
+  MarketStatus,
+} from "./utils/api.interface";
 
-export interface TickerResponse {
-  ticker: string;
-  queryCount: number;
-  resultsCount: number;
-  adjusted: boolean;
-  results: Result[];
-  status: string;
-  request_id: string;
-  count: number;
-}
-export interface Result {
-  v: number;
-  vw: number;
-  o: number;
-  c: number;
-  h: number;
-  l: number;
-  t: number;
-  n: number;
-}
-
-export const instance = axios.create({
-  baseURL: "http://localhost:2000/",
-  timeout: 1000,
+export const heroku = axios.create({
+  baseURL: "https://quantcrunch-api.herokuapp.com/api/",
+  timeout: 3000,
   headers: { "X-Custom-Header": "foobar" },
 });
 
 export const getTickerPriceData = async (
   ticker: string,
   resolution: string
-): Promise<Result[]> => {
+): Promise<TickerResponseResult[]> => {
   const today = new Date().getTime();
   const day = 86400000;
   let startDate: number; // unixtime in millisecond
@@ -84,7 +68,7 @@ export const getTickerPriceData = async (
   return res.data.results;
 };
 
-export const getIndex = async (): Promise<Result[]> => {
+export const getIndex = async (): Promise<TickerResponseResult[]> => {
   const date = new Date();
   const res = await axios.get<TickerResponse>(
     `https://api.polygon.io/v2/aggs/ticker/SPY/range/1/day/${
@@ -94,31 +78,10 @@ export const getIndex = async (): Promise<Result[]> => {
   return res.data.results;
 };
 
-export interface MarketStatus {
-  market: string;
-  earlyHours: boolean;
-  afterHours: boolean;
-  serverTime: string;
-  exchanges: Exchanges;
-  currencies: Currencies;
-}
-
-export interface Currencies {
-  fx: string;
-  crypto: string;
-}
-
-export interface Exchanges {
-  nyse: string;
-  nasdaq: string;
-  otc: string;
-}
-
 export const getStatus = async (): Promise<boolean> => {
   const res = await axios.get<MarketStatus>(
     `https://api.polygon.io/v1/marketstatus/now?&apiKey=${credentials.API_KEY}`
   );
-  console.log(res.data.market);
   return res.data.market === "open";
 };
 

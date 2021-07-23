@@ -1,6 +1,6 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
-import { getIndex, instance } from "../api";
+import { getIndex, heroku } from "../api";
 
 class ApexChartPerformance extends React.Component<unknown, any> {
   constructor(props: unknown) {
@@ -66,7 +66,7 @@ class ApexChartPerformance extends React.Component<unknown, any> {
       return { x: new Date(result.t), y: value - 1 };
     });
 
-    const performance = await instance.get("algoGraph");
+    const performance = await heroku.get("algoGraph");
 
     this.setState({
       ...this.state,

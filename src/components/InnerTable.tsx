@@ -1,14 +1,6 @@
-interface innerTableProps {
-  positions: {
-    ticker: string;
-    buy: number;
-    sell: number;
-    pnl: number;
-    notes: string;
-  }[];
-}
+import { Position } from "../utils/api.interface";
 
-function InnerTable({ positions }: innerTableProps): JSX.Element {
+function InnerTable({ positions }: { positions: Position[] }): JSX.Element {
   const innerTableCols = [
     "Ticker",
     "Buy Price",
@@ -32,10 +24,10 @@ function InnerTable({ positions }: innerTableProps): JSX.Element {
       <tbody>
         {positions.map((data) => {
           return (
-            <tr key={data.ticker}>
-              <td>{data.ticker}</td>
-              <td>{data.buy}</td>
-              <td>{data.sell}</td>
+            <tr key={data.symbol}>
+              <td>{data.symbol}</td>
+              <td>{data.entry_price}</td>
+              <td>{data.target_price}</td>
               <td>{data.pnl}</td>
               <td>{data.notes}</td>
             </tr>

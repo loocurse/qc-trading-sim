@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { instance } from "../api";
+import { heroku } from "../api";
+import { Recommendations } from "../utils/api.interface";
 import { ticker } from "../utils/ticker.interface";
 import { Action } from "../utils/tickerReducer";
 
 interface recommendationType {
-  date: Date;
-  ticker: string;
-  entry_price: number;
-  stop_loss: number;
+  symbol: string;
   target_price: number;
+  entry_price: number;
+  open_timestamp: number;
+  stop_loss: number;
   expected_profit: number;
 }
 
@@ -24,7 +25,7 @@ function Recommendation({
   const [rec, setRec] = useState<recommendationType[]>([]);
 
   const fetchData = async () => {
-    const res = await instance.get("recommendation");
+    const res = await heroku.get<Recommendations[]>("recommendations?limit=10");
     setRec(res.data);
   };
 
@@ -41,8 +42,8 @@ function Recommendation({
     "Profit",
   ];
 
-  const formatDate = (param_date: Date) => {
-    const date = new Date(param_date);
+  const formatDate = (open_timestamp: number) => {
+    const date = new Date(open_timestamp);
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
   };
 
@@ -74,11 +75,13 @@ function Recommendation({
           {rec.map((rec, idx) => {
             return (
               <tr key={idx}>
-                <td className="content-center">{formatDate(rec.date)}</td>
+                <td className="content-center">
+                  {formatDate(rec.open_timestamp)}
+                </td>
                 <td
                   className="font-bold cursor-pointer"
-                  onClick={() => clickHandler(rec.ticker)}>
-                  {rec.ticker}
+                  onClick={() => clickHandler(rec.symbol)}>
+                  {rec.symbol}
                 </td>
                 <td>${rec.entry_price}</td>
                 <td>${rec.stop_loss}</td>

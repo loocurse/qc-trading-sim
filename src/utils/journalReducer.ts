@@ -75,6 +75,6 @@ export const journalReducer = (state: State, action: Action): State => {
       ];
       return { ...state, openPosition, closedPosition };
     case "SET_CURRENT_TICKER":
-      return { ...state, currentTicker: action.data}
+      return { ...state, currentTicker: action.data };
   }
 };
