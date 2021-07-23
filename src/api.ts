@@ -6,7 +6,7 @@ import {
   MarketStatus,
 } from "./utils/api.interface";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 export const heroku = axios.create({
   baseURL: "https://quantcrunch-api.herokuapp.com/api/",
