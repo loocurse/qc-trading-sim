@@ -56,7 +56,7 @@ function Recommendation({
       const strTime = hours + ":" + string_minutes + " " + ampm;
       return strTime;
     }
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 
   const clickHandler = (symbol: string) => {
