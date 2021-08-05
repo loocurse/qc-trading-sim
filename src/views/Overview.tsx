@@ -69,7 +69,7 @@ function Overview(): JSX.Element {
             <h2 className="mr-2 text-xl ">{selectedTicker.price}</h2>
             <p className="text-gray-400 ml-2">
               {selectedTicker.change} (
-              {(selectedTicker.change_perc * 100).toFixed(2)}%)
+              {(selectedTicker.change_perc).toFixed(2)}%)
             </p>
           </div>
           <div className="relative">
